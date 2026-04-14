@@ -1,0 +1,20 @@
+{
+  "name": "type.ai",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NitinYadav354/type.ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NitinYadav354/type.ai/issues"
+  },
+  "homepage": "https://github.com/NitinYadav354/type.ai#readme",
+  "description": ""
+}

@@ -1,10 +1,14 @@
-import { useEffect, useState, type Key } from 'react'
+import { useEffect, useRef, useState, type Key } from 'react'
 
 
 function App() {
   const targetText = 'Hello, World! This is a typing test.'
   const [inputText, setInputText] = useState('')
   const [status, setStatus] = useState('idle')
+  const [TimeTaken, setTimeTaken] = useState(0)
+  const startTimeRef = useRef<number>(0);
+  const finishTimeRef = useRef<number>(0);
+  const [wpm, setWpm] = useState(0)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -22,6 +26,8 @@ function App() {
       if (event.key.length === 1) {
         if(status === 'idle') {
           setStatus('typing')
+          startTimeRef.current = Date.now();
+          console.log(startTimeRef.current)
         }
         setInputText((prev) => prev + event.key)
       }
@@ -37,6 +43,12 @@ function App() {
   useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
       setStatus('completed')
+      finishTimeRef.current = Date.now()
+      console.log(finishTimeRef.current)
+      console.log(finishTimeRef.current - startTimeRef.current)
+      setTimeTaken((finishTimeRef.current - startTimeRef.current) / 1000)
+      setWpm(Math.round((inputText.length / 5) / ((finishTimeRef.current - startTimeRef.current) / 60000)) || 0)
+
     }
   }, [inputText, targetText])
 
@@ -66,6 +78,8 @@ function App() {
         })}
       </p>
       <p>{status}</p>
+      <p>Time Taken: {TimeTaken} seconds</p>
+      {status === 'completed' && <p>WPM : {wpm}</p>}
     </div>
   )
 
