@@ -8,7 +8,12 @@ function App() {
   const [TimeTaken, setTimeTaken] = useState(0)
   const startTimeRef = useRef<number>(0);
   const finishTimeRef = useRef<number>(0);
+  const backspacePressedRef = useRef<number>(0);
   const [wpm, setWpm] = useState(0)
+  const [accuracy, setAccuracy] = useState(100)
+  const [accuracy2, setAccuracy2] = useState(100)
+  const missedKeyRef = useRef<Record<string, number>>({})
+  const errorRef = useRef<number>(0)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -20,6 +25,7 @@ function App() {
 
       if (event.key === 'Backspace') {
         setInputText((prev) => prev.slice(0, -1))
+        backspacePressedRef.current += 1;
         return
       }
       
@@ -30,6 +36,12 @@ function App() {
           console.log(startTimeRef.current)
         }
         setInputText((prev) => prev + event.key)
+        const char = targetText[inputText.length]
+        if (event.key !== char) {
+            const currentCount = missedKeyRef.current[char] || 0
+            missedKeyRef.current[char] = currentCount + 1
+            console.log(missedKeyRef.current)
+        }
       }
 
 
@@ -38,7 +50,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [status]);
+  }, [status, inputText]);
 
   useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
@@ -48,6 +60,14 @@ function App() {
       console.log(finishTimeRef.current - startTimeRef.current)
       setTimeTaken((finishTimeRef.current - startTimeRef.current) / 1000)
       setWpm(Math.round((inputText.length / 5) / ((finishTimeRef.current - startTimeRef.current) / 60000)) || 0)
+      setAccuracy((inputText.length - backspacePressedRef.current)/inputText.length * 100)
+      for (const char in missedKeyRef.current) {
+        errorRef.current += missedKeyRef.current[char]
+      }
+      console.log(errorRef.current)
+      setAccuracy2((inputText.length - errorRef.current)/inputText.length * 100)
+      errorRef.current = 0
+
 
     }
   }, [inputText, targetText])
@@ -64,6 +84,7 @@ function App() {
               color = 'green'
             } else {
               color = 'red'
+
             }
           }
 
@@ -80,6 +101,8 @@ function App() {
       <p>{status}</p>
       <p>Time Taken: {TimeTaken} seconds</p>
       {status === 'completed' && <p>WPM : {wpm}</p>}
+      {status === 'completed' && <p>Accuracy : {Math.round(accuracy)}</p>}
+      {status === 'completed' && <p>Accuracy 2 : {Math.round(accuracy2)}</p>}
     </div>
   )
 
