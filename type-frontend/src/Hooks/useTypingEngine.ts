@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState} from 'react'
 
 export default function useTypingEngine() {
-    interface keyStrokeData {
+    interface typingEvent {
+        type : 'character',
         expectedChar : string,
         actualChar : string,
         timeStamp : number,
         isCorrect : boolean
     }
+
+    interface controlEvent {
+        type : 'Backspace',
+        timeStamp : number
+    }
+
+    type keyStrokeData = typingEvent | controlEvent
 
     const targetText = 'Hello, World! This is a typing test'
     const [inputText, setInputText] = useState('')
@@ -35,6 +43,10 @@ useEffect(() => {
         if (event.key === 'Backspace') {
         setInputText((prev) => prev.slice(0, -1))
         backspacePressedRef.current += 1;
+        keyStrokesRef.current.push({
+            type: 'Backspace',
+            timeStamp: Date.now()
+        })
         return
         }
         
@@ -51,6 +63,7 @@ useEffect(() => {
 
         setInputText((prev) => prev + event.key)
         keyStrokesRef.current.push({
+            type: 'character',
             expectedChar : expectedChar,
             actualChar: event.key,
             timeStamp : timeStamp,
