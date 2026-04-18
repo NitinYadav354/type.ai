@@ -4,6 +4,7 @@ type StatsProps = {
     wpm: number
     accuracy: number
     accuracy2: number
+    
 }
 
 const Stats = ({ status, TimeTaken, wpm, accuracy, accuracy2 }: StatsProps) => {

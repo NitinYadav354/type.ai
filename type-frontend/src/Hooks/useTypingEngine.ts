@@ -1,20 +1,28 @@
 import { useEffect, useRef, useState} from 'react'
 
-
-
 export default function useTypingEngine() {
+    interface keyStrokeData {
+        expectedChar : string,
+        actualChar : string,
+        timeStamp : number,
+        isCorrect : boolean
+    }
+
     const targetText = 'Hello, World! This is a typing test'
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
     const [TimeTaken, setTimeTaken] = useState(0)
-    const startTimeRef = useRef<number>(0);
-    const finishTimeRef = useRef<number>(0);
+    // const startTimeRef = useRef<number>(0);
+    // const finishTimeRef = useRef<number>(0);
     const backspacePressedRef = useRef<number>(0);
     const [wpm, setWpm] = useState(0)
     const [accuracy, setAccuracy] = useState(100)
-    const [accuracy2, setAccuracy2] = useState(100)
-    const missedKeyRef = useRef<Record<string, number>>({})
-    const errorRef = useRef<number>(0)
+    const keyStrokesRef = useRef<keyStrokeData[]>([])
+
+    const metricslogger = () => {
+        console.log(keyStrokesRef.current)
+        console.log(backspacePressedRef.current)
+    }
 
 useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -33,17 +41,22 @@ useEffect(() => {
         if (event.key.length === 1) {
         if(status === 'idle') {
             setStatus('typing')
-            startTimeRef.current = Date.now();
-            console.log(startTimeRef.current)
+            // startTimeRef.current = Date.now();
+ 
         }
+
+        const expectedChar = targetText[inputText.length]
+        const timeStamp = Date.now()
+        const isCorrect = event.key === expectedChar
+
         setInputText((prev) => prev + event.key)
-        const char = targetText[inputText.length]
-        if (event.key !== char) {
-            const currentCount = missedKeyRef.current[char] || 0
-            missedKeyRef.current[char] = currentCount + 1
-            console.log(missedKeyRef.current)
-        }
-        }
+        keyStrokesRef.current.push({
+            expectedChar : expectedChar,
+            actualChar: event.key,
+            timeStamp : timeStamp,
+            isCorrect : isCorrect
+        })
+    }
 
 
     };
@@ -56,19 +69,7 @@ useEffect(() => {
     useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
         setStatus('completed')
-        finishTimeRef.current = Date.now()
-        console.log(finishTimeRef.current)
-        console.log(finishTimeRef.current - startTimeRef.current)
-        setTimeTaken((finishTimeRef.current - startTimeRef.current) / 1000)
-        setWpm(Math.round((inputText.length / 5) / ((finishTimeRef.current - startTimeRef.current) / 60000)) || 0)
-        setAccuracy((inputText.length - backspacePressedRef.current)/inputText.length * 100)
-        for (const char in missedKeyRef.current) {
-        errorRef.current += missedKeyRef.current[char]
-        }
-        console.log(errorRef.current)
-        setAccuracy2((inputText.length - errorRef.current)/inputText.length * 100)
-        errorRef.current = 0
-        backspacePressedRef.current = 0
+        metricslogger()
     }
     }, [inputText, targetText])
 
@@ -78,8 +79,7 @@ useEffect(() => {
         status,
         TimeTaken,
         wpm,
-        accuracy,
-        accuracy2,
+        accuracy
     }
 }
 
