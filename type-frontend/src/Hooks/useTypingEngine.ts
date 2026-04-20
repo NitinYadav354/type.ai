@@ -20,16 +20,57 @@ export default function useTypingEngine() {
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
     const [TimeTaken, setTimeTaken] = useState(0)
-    // const startTimeRef = useRef<number>(0);
-    // const finishTimeRef = useRef<number>(0);
-    const backspacePressedRef = useRef<number>(0);
     const [wpm, setWpm] = useState(0)
     const [accuracy, setAccuracy] = useState(100)
     const keyStrokesRef = useRef<keyStrokeData[]>([])
 
-    const metricslogger = () => {
-        console.log(keyStrokesRef.current)
-        console.log(backspacePressedRef.current)
+    const calculateMetrics = () => {
+        // Calculate Time Taken
+        const TimeTaken = (Date.now() - keyStrokesRef.current[0].timeStamp)/1000
+
+        // Calculate WPM
+        const wordsTyped = inputText.length / 5
+        const wpm = wordsTyped / (TimeTaken/60)
+        console.log('WPM:', wpm)    
+        let error = 0
+
+        // Calculate Accuracy
+        for (const event of keyStrokesRef.current) {
+            if (event.type === 'character' && !event.isCorrect) {
+                error++
+            }         
+        }
+        const accuracy = Math.max(((inputText.length - error) / inputText.length) * 100, 0)
+
+        //Hesitation Metric
+        const startTime = keyStrokesRef.current[0].timeStamp
+        const endTime = keyStrokesRef.current[keyStrokesRef.current.length - 1].timeStamp
+        const hesitationTimeThreshold = ((endTime - startTime) / (keyStrokesRef.current.length -1)) * 2
+
+
+        let hesitationTime = 0
+        const hesitationMap: Record<string, number> = {};
+        for (let i = 1; i < keyStrokesRef.current.length; i++) {
+            const prevEvent = keyStrokesRef.current[i - 1]
+            const currentEvent = keyStrokesRef.current[i]
+            const timeDiff = currentEvent.timeStamp - prevEvent.timeStamp
+            if (timeDiff > hesitationTimeThreshold) {
+                hesitationTime += timeDiff - hesitationTimeThreshold
+
+                if (currentEvent.type === 'character') {
+                    const expected = currentEvent.expectedChar;
+                    hesitationMap[expected] = (hesitationMap[expected] || 0) + 1;
+                }
+            }
+        }
+
+        console.log('Hesitation Time (ms):', hesitationTime)
+        console.log('Hesitation Map:', hesitationMap)
+        
+        // Update States
+        setTimeTaken(Math.round(TimeTaken))
+        setWpm(Math.round(wpm))
+        setAccuracy(Math.round(accuracy))
     }
 
 useEffect(() => {
@@ -42,7 +83,6 @@ useEffect(() => {
 
         if (event.key === 'Backspace') {
         setInputText((prev) => prev.slice(0, -1))
-        backspacePressedRef.current += 1;
         keyStrokesRef.current.push({
             type: 'Backspace',
             timeStamp: Date.now()
@@ -53,7 +93,6 @@ useEffect(() => {
         if (event.key.length === 1) {
         if(status === 'idle') {
             setStatus('typing')
-            // startTimeRef.current = Date.now();
  
         }
 
@@ -82,7 +121,7 @@ useEffect(() => {
     useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
         setStatus('completed')
-        metricslogger()
+        calculateMetrics()
     }
     }, [inputText, targetText])
 

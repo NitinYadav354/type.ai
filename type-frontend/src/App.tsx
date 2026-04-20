@@ -12,14 +12,14 @@ function App() {
     TimeTaken,
     wpm,
     accuracy,
-    accuracy2,
   } = useTypingEngine()
 
 
   return (
-    <div>
+    <div style={{backgroundColor: "#363636", color: "white", height: "100vh", display: "flex", flexDirection: "column"}}>
+
       <TextDisplay inputText={inputText} targetText={targetText} />
-      <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} accuracy2={accuracy2} />
+      <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
     </div>
   )
 

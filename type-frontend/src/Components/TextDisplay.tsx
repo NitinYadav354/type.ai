@@ -15,7 +15,6 @@ const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
                 color = 'green'
                 } else {
                 color = 'red'
-
                 }
             }
 
