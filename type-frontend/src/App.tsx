@@ -1,6 +1,7 @@
 import TextDisplay from './Components/TextDisplay'
 import Stats from './Components/Stats'
 import useTypingEngine from './Hooks/useTypingEngine'
+import TextHeatMap from './Components/TextHeatMap'
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     TimeTaken,
     wpm,
     accuracy,
+    keyStrokesRef
   } = useTypingEngine()
 
 
@@ -20,6 +22,7 @@ function App() {
 
       <TextDisplay inputText={inputText} targetText={targetText} />
       <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
+      {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
     </div>
   )
 

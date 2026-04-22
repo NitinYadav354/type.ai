@@ -14,6 +14,9 @@ const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
                 if(typedchar === char) {
                 color = 'green'
                 } else {
+                    if (char === ' ') {
+                        char = '␣'
+                    }
                 color = 'red'
                 }
             }

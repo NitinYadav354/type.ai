@@ -63,10 +63,12 @@ export default function useTypingEngine() {
                 }
             }
         }
-
-        console.log('Hesitation Time (ms):', hesitationTime)
+        hesitationTime = Math.round(hesitationTime / 10)/100 
+        console.log('Hesitation Time Threshold (ms):', hesitationTimeThreshold)
+        console.log('Hesitation Time (s):', hesitationTime)
         console.log('Hesitation Map:', hesitationMap)
-        
+
+
         // Update States
         setTimeTaken(Math.round(TimeTaken))
         setWpm(Math.round(wpm))
@@ -122,6 +124,7 @@ useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
         setStatus('completed')
         calculateMetrics()
+        console.log('Key Strokes Data:', keyStrokesRef.current)
     }
     }, [inputText, targetText])
 
@@ -131,7 +134,8 @@ useEffect(() => {
         status,
         TimeTaken,
         wpm,
-        accuracy
+        accuracy,
+        keyStrokesRef: keyStrokesRef.current
     }
 }
 
