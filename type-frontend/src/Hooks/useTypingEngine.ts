@@ -78,23 +78,8 @@ export default function useTypingEngine() {
         setWpm(Math.round(wpm))
         setAccuracy(Math.round(accuracy))
 
-        //build session payload
-        const sessionPayload = {
-        userId: getOrCreateGuestID(),
-        timestamp: new Date().toISOString(),
-        testConfig: {
-            language: "english",
-            timeLimit: TimeTaken,
-        },
-        macroscopicMetrics: {
-            wpm: Math.round(wpm),
-            accuracy: Math.round(accuracy)
-        },
-        microscopicMetrics: {
-            totalHesitationTimeMs: Math.round(hesitationTime),
-            problemKeys: hesitationMap,
-            missedKeys: missedKeysMap
-        }
+        const buildTelemetryPayload = sendTelemetry(metrics)
+        console.log("Telemetry Payload:", buildTelemetryPayload)
     };
 
     console.log("FINAL SESSION PAYLOAD:", sessionPayload);
