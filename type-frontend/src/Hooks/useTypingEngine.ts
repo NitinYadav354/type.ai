@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState} from 'react'
+import {getOrCreateGuestID} from '../Utility/userGuestID'
+
 
 export default function useTypingEngine() {
     interface typingEvent {
@@ -16,7 +18,7 @@ export default function useTypingEngine() {
 
     type keyStrokeData = typingEvent | controlEvent
 
-    const targetText = 'Hello, World! This is a typing test'
+    const targetText = 'I woke up early in the morning'
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
     const [TimeTaken, setTimeTaken] = useState(0)
@@ -32,12 +34,14 @@ export default function useTypingEngine() {
         const wordsTyped = inputText.length / 5
         const wpm = wordsTyped / (TimeTaken/60)
         console.log('WPM:', wpm)    
-        let error = 0
 
         // Calculate Accuracy
+        let error = 0
+        const missedKeysMap: Record<string, number> = {}
         for (const event of keyStrokesRef.current) {
             if (event.type === 'character' && !event.isCorrect) {
                 error++
+                missedKeysMap[event.expectedChar] = (missedKeysMap[event.expectedChar] || 0) + 1
             }         
         }
         const accuracy = Math.max(((inputText.length - error) / inputText.length) * 100, 0)
@@ -63,9 +67,9 @@ export default function useTypingEngine() {
                 }
             }
         }
-        hesitationTime = Math.round(hesitationTime / 10)/100 
+        const hesitationTimesec = Math.round(hesitationTime / 10)/100 
         console.log('Hesitation Time Threshold (ms):', hesitationTimeThreshold)
-        console.log('Hesitation Time (s):', hesitationTime)
+        console.log('Hesitation Time (s):', hesitationTimesec)
         console.log('Hesitation Map:', hesitationMap)
 
 
@@ -73,8 +77,28 @@ export default function useTypingEngine() {
         setTimeTaken(Math.round(TimeTaken))
         setWpm(Math.round(wpm))
         setAccuracy(Math.round(accuracy))
-    }
 
+        //build session payload
+        const sessionPayload = {
+        userId: getOrCreateGuestID(),
+        timestamp: new Date().toISOString(),
+        testConfig: {
+            language: "english",
+            timeLimit: TimeTaken,
+        },
+        macroscopicMetrics: {
+            wpm: Math.round(wpm),
+            accuracy: Math.round(accuracy)
+        },
+        microscopicMetrics: {
+            totalHesitationTimeMs: Math.round(hesitationTime),
+            problemKeys: hesitationMap,
+            missedKeys: missedKeysMap
+        }
+    };
+
+    console.log("FINAL SESSION PAYLOAD:", sessionPayload);
+    }
 useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
         if (status === 'completed') return
@@ -124,7 +148,14 @@ useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
         setStatus('completed')
         calculateMetrics()
-        console.log('Key Strokes Data:', keyStrokesRef.current)
+        for (const event of keyStrokesRef.current) {
+            if (event.type === 'character') {
+                console.log(event.actualChar, event.timeStamp - keyStrokesRef.current[0].timeStamp)
+            }
+            else{
+                console.log('BS', event.timeStamp - keyStrokesRef.current[0].timeStamp)
+            }
+        }
     }
     }, [inputText, targetText])
 

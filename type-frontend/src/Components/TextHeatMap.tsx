@@ -1,3 +1,5 @@
+import { heatMapData as buildHeatMapData } from '../Utility/heatMapData'
+
 type TypingEvent = {
     type: 'character'
     actualChar: string
@@ -13,38 +15,17 @@ type ControlEvent = {
 type KeyStrokeData = TypingEvent | ControlEvent
 
 const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: string}) => {
-    type CharTimeType = {
-        char : string;
-        time : number;
-    };
-    const charTime: CharTimeType[] = [];
-    let x = 0;
-    let prevTimestamp = keyStrokes[0]?.timeStamp || 0;
-    for (let i = 0; i < text.length; i++) {
-        while (x < keyStrokes.length) {
-        const char = text[i]
-        if (keyStrokes[x].type === 'character' && keyStrokes[x].actualChar === char){
-            const currTimestamp = keyStrokes[x].timeStamp
-            const timediff = currTimestamp - prevTimestamp
-            charTime.push({
-                char: char,
-                time: timediff
-            })
-            prevTimestamp = currTimestamp
-            x++;
-            break
-        }
-        else{
-            x++;
-        }
-    }
-    }
-    console.log('Character Time Data:', charTime)
+    const heatMapData = buildHeatMapData(keyStrokes, text)
+    console.log('Character Time Data:', heatMapData)
+    const threshold = text.length > 0
+        ? ((keyStrokes[keyStrokes.length - 1].timeStamp - keyStrokes[0].timeStamp) / text.length) * 1.5
+        : 0
 
     return(
         <div style={{backgroundColor: "white"}}>
-        {charTime.map((item, index) => {
-            const threshold = ((keyStrokes[keyStrokes.length - 1].timeStamp - keyStrokes[0].timeStamp) / text.length) * 1.5;
+            
+        {heatMapData.map((item, index) => {
+
             const ratio = Math.min(item.time / threshold, 1);
             const l = (1 - ratio) * 40 + 15; 
             console.log(l)
