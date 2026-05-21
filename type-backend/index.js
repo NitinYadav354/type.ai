@@ -2,6 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import session from './Models/postAnalysisData.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 app.use(cors())
@@ -29,7 +32,7 @@ app.post('/api/session', async (req, res) => {
     }
 })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })

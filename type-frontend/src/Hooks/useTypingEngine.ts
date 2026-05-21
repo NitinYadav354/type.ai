@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState} from 'react'
 import { sendTelemetry } from '../Services/TelemeryAPI'
 import { calculateMetrics } from '../Utility/calculateMetrics'
+import clickSound from '../Assets/typeSound.mp3'
+import summarizeKeystrokes from '../Utility/summary_keystrokes'
+
+const playsound = () => {
+    const audio = new Audio(clickSound)
+    audio.play().catch((error) => {
+        console.error("Error playing sound:", error)
+    })
+}
 
 
 interface typingEvent {
@@ -37,7 +46,15 @@ export default function useTypingEngine() {
         setAccuracy(Math.round(accuracy))
 
         const buildTelemetryPayload = sendTelemetry(metrics)
+        console.log("keystrokes:", keyStrokesRef.current)
         console.log("Telemetry Payload:", buildTelemetryPayload)
+        // Generate and log a human-friendly summary of keystrokes
+        try {
+            const summary = summarizeKeystrokes(keyStrokesRef.current)
+            console.log('Keystroke Summary:', summary)
+        } catch (err) {
+            console.error('Failed to summarize keystrokes', err)
+        }
     };
 useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -61,7 +78,8 @@ useEffect(() => {
             setStatus('typing')
  
         }
-
+        playsound()
+        
         const expectedChar = targetText[inputText.length]
         const timeStamp = Date.now()
         const isCorrect = event.key === expectedChar
