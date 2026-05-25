@@ -7,7 +7,7 @@ type TextDisplayProps = {
 
 const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
     return (
-        <div>
+        <div style={{ fontSize: "1.5rem", lineHeight: "1.6", letterSpacing: "1px" }}>
         <p>
             {targetText.split('').map((char, index) => {
             const typedchar = inputText[index]
@@ -23,10 +23,10 @@ const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
                 }
             }
 
+            const isCurrentChar = index === inputText.length
+
             return (
-                <span key={index} style={{ color: color, 
-                borderLeft : index === inputText.length ? '2px solid black' : 'none',
-                paddingLeft: '2px',
+                <span key={index} className= {isCurrentChar ? "cursor" : ""} style={{ color: color, transition: 'color 0.3s'
                 }}>
                 {char}
                 </span>    

@@ -48,7 +48,6 @@ export default function useTypingEngine() {
         const buildTelemetryPayload = sendTelemetry(metrics)
         console.log("keystrokes:", keyStrokesRef.current)
         console.log("Telemetry Payload:", buildTelemetryPayload)
-        // Generate and log a human-friendly summary of keystrokes
         try {
             const summary = summarizeKeystrokes(keyStrokesRef.current)
             console.log('Keystroke Summary:', summary)
