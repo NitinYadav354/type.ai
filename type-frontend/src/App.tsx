@@ -37,7 +37,7 @@ function App() {
         alignItems: 'center',
         marginBottom: '40px'
       }}>
-        <h1 style={{ color: "#e2b714", margin: 0 }}>Type.AI.</h1>
+        <h1 style={{ color: "#e2b714", margin: 0 }}>Type.AI</h1>
       <Auth />
       </div>
       <TextDisplay inputText={inputText} targetText={targetText} />

@@ -4,3 +4,24 @@ body {
   background-color: #323437;
   color: #d1d0c5;
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor {
+    position: relative;
+
+}
+
+.cursor::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2%;
+    bottom: 10%;
+    width: 2px;
+    height: 100%;
+    background-color: #e2b714;
+    animation: blink 1s step-start infinite;
+}

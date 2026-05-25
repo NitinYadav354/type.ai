@@ -1,5 +1,3 @@
-import React from "react"
-
 type TextDisplayProps = {
     inputText: string
     targetText: string
@@ -26,7 +24,7 @@ const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
             const isCurrentChar = index === inputText.length
 
             return (
-                <span key={index} className= {isCurrentChar ? "cursor" : ""} style={{ color: color, transition: 'color 0.3s'
+                <span key={index} className= {isCurrentChar ? 'cursor' : ''} style={{ color: color
                 }}>
                 {char}
                 </span>    
