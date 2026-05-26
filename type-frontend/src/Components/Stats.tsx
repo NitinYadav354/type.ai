@@ -8,15 +8,38 @@ type StatsProps = {
 
 const Stats = ({ status, TimeTaken, wpm, accuracy}: StatsProps) => {
     return (
-        <div>
-        <p>{status}</p>
-        <p>Time Taken: {TimeTaken} seconds</p>
-        {status === 'completed' && <p>WPM : {wpm}</p>}
-        {status === 'completed' && <p>Accuracy : {Math.round(accuracy)}</p>}
-        {status === 'completed' && <p>Net WPM : {Math.round(wpm * (accuracy/100))}</p>}
-        {status === 'completed' && <p>CPM : {Math.round(wpm * 5)}</p>}
-        </div>
-    )
+  <div style={{ 
+    display: 'flex', 
+    gap: '2rem',
+    marginTop: '2rem',
+    justifyContent: 'flex-start',
+    opacity: status === 'completed' ? 1 : 0.4,
+    transition: 'opacity 0.3s ease'
+  }}>
+
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <span style={{ fontSize: '0.9rem', color: '#646669' }}>time</span>
+      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{TimeTaken}s</span>
+    </div>
+
+
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <span style={{ fontSize: '0.9rem', color: '#646669' }}>wpm</span>
+      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{wpm}</span>
+    </div>
+
+
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <span style={{ fontSize: '0.9rem', color: '#646669' }}>acc</span>
+      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{Math.round(accuracy)}%</span>
+    
+    </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <span style={{ fontSize: '0.9rem', color: '#646669' }}>Net WPM</span>
+      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{Math.round(wpm*accuracy/100)}</span>
+    </div>
+  </div>
+)
     
 }
 

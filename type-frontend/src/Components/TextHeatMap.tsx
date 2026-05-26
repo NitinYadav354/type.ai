@@ -15,29 +15,49 @@ type ControlEvent = {
 type KeyStrokeData = TypingEvent | ControlEvent
 
 const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: string}) => {
+    if (!keyStrokes || keyStrokes.length < 2 || !text) return null;
+
     const heatMapData = buildHeatMapData(keyStrokes, text)
     console.log('Character Time Data:', heatMapData)
+    
     const threshold = text.length > 0
         ? ((keyStrokes[keyStrokes.length - 1].timeStamp - keyStrokes[0].timeStamp) / text.length) * 1.5
         : 0
 
     return(
-        <div style={{backgroundColor: "white"}}>
-            
-        {heatMapData.map((item, index) => {
+        <div style={{
+            marginTop: '40px',
+            padding: '20px',
+            backgroundColor: '#2c2e31',
+            borderRadius: '8px',
+            border: '1px solid #363636',
+            width: '100%'
+        }}>
+            <div style={{
+                fontSize: '1.5rem',
+                lineHeight: '1.6',
+                letterSpacing: '1px',
+                wordWrap: 'break-word'
+            }}>
+                
+            {heatMapData.map((item, index) => {
+                const ratio = Math.min(item.time / threshold, 1);
+                
+                
+                const sat = (1- ratio) * 100; 
+                
+                const displayChar = item.char === ' ' ? '_' : item.char;
 
-            const ratio = Math.min(item.time / threshold, 1);
-            const l = (1 - ratio) * 40 + 15; 
-            console.log(l)
-            return (
-                <span key={index} style={{ color: `hsl(120, 100%, ${l}%)` }}>
-                {item.char}
-                </span>
-            );
-        })}
+                return (
+                    <span key={index} style={{ color: `hsl(110, ${sat}%, 65%)` }}>
+                        {displayChar}
+                    </span>
+                );
+            })}
+            
+            </div>
         </div>
     )
 }
-
 
 export default TextHeatMap
