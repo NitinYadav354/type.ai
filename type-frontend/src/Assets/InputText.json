@@ -48,21 +48,21 @@
     "type": "natural_language",
     "subtype": "quotes",
     "length": "short",
-    "text": "The only way to do great work is to love what you do. — Steve Jobs"
+    "text": "The only way to do great work is to love what you do. - Steve Jobs"
   },
   {
     "id": 8,
     "type": "natural_language",
     "subtype": "quotes",
     "length": "medium",
-    "text": "It is not the strongest of the species that survives, nor the most intelligent, but the one most responsive to change. — Charles Darwin. In the middle of every difficulty lies opportunity. — Albert Einstein."
+    "text": "It is not the strongest of the species that survives, nor the most intelligent, but the one most responsive to change. - Charles Darwin. In the middle of every difficulty lies opportunity. - Albert Einstein."
   },
   {
     "id": 9,
     "type": "natural_language",
     "subtype": "quotes",
     "length": "long",
-    "text": "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover. — Mark Twain. Success is not final, failure is not fatal: it is the courage to continue that counts. — Winston Churchill. Believe you can and you're halfway there. — Theodore Roosevelt. The purpose of our lives is to be happy. — Dalai Lama."
+    "text": "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover. - Mark Twain. Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill. Believe you can and you're halfway there. - Theodore Roosevelt. The purpose of our lives is to be happy. - Dalai Lama."
   },
 
   {
@@ -121,14 +121,14 @@
     "type": "natural_language",
     "subtype": "professional_writing",
     "length": "medium",
-    "text": "Dear Mr. Sharma, I hope this message finds you well. I am writing to follow up on our discussion regarding the Q3 budget allocation. As per our agreement, the finance team will submit the revised figures by Thursday, 29th May. Should you require any additional information prior to the review meeting, please do not hesitate to reach out. Warm regards, Ankit Verma, Senior Manager — Finance Operations."
+    "text": "Dear Mr. Sharma, I hope this message finds you well. I am writing to follow up on our discussion regarding the Q3 budget allocation. As per our agreement, the finance team will submit the revised figures by Thursday, 29th May. Should you require any additional information prior to the review meeting, please do not hesitate to reach out. Warm regards, Ankit Verma, Senior Manager - Finance Operations."
   },
   {
     "id": 18,
     "type": "natural_language",
     "subtype": "professional_writing",
     "length": "long",
-    "text": "Subject: Strategic Review — FY2026 Roadmap Alignment. Dear Team, Following last week's leadership offsite, I wanted to consolidate the key takeaways and outline our path forward for the remainder of the fiscal year. Our primary focus areas will be revenue diversification, operational efficiency, and talent retention. Each business unit head is requested to submit a revised OKR document by June 15th, clearly mapping team objectives to the three pillars mentioned above. The PMO will schedule bi-weekly syncs beginning the first week of July to track progress against milestones. Please ensure that all dependencies are flagged in advance to avoid bottlenecks during execution. I appreciate your continued dedication and look forward to a strong close to FY2026. Best regards, Priya Malhotra, Chief Operating Officer."
+    "text": "Subject: Strategic Review - FY2026 Roadmap Alignment. Dear Team, Following last week's leadership offsite, I wanted to consolidate the key takeaways and outline our path forward for the remainder of the fiscal year. Our primary focus areas will be revenue diversification, operational efficiency, and talent retention. Each business unit head is requested to submit a revised OKR document by June 15th, clearly mapping team objectives to the three pillars mentioned above. The PMO will schedule bi-weekly syncs beginning the first week of July to track progress against milestones. Please ensure that all dependencies are flagged in advance to avoid bottlenecks during execution. I appreciate your continued dedication and look forward to a strong close to FY2026. Best regards, Priya Malhotra, Chief Operating Officer."
   },
 
   {

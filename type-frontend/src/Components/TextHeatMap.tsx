@@ -21,7 +21,7 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
     console.log('Character Time Data:', heatMapData)
     
     const threshold = text.length > 0
-        ? ((keyStrokes[keyStrokes.length - 1].timeStamp - keyStrokes[0].timeStamp) / text.length) * 1.5
+        ? ((keyStrokes[keyStrokes.length - 1].timeStamp - keyStrokes[0].timeStamp) / text.length)
         : 0
 
     return(
@@ -41,15 +41,16 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
             }}>
                 
             {heatMapData.map((item, index) => {
-                const ratio = Math.min(item.time / threshold, 1);
+                const ratio = Math.min((item.time - threshold) / threshold,);
                 
                 
-                const sat = (1- ratio) * 100; 
+                const sat = (1- ratio) * 50;
+                console.log("RATIO: ", ratio, "sat:", sat, "char", item.char, "time:", item.time)
                 
                 const displayChar = item.char === ' ' ? '_' : item.char;
 
                 return (
-                    <span key={index} style={{ color: `hsl(110, ${sat}%, 65%)` }}>
+                    <span key={index} style={{ color: `hsl(120, ${sat}%, 65%)` }}>
                         {displayChar}
                     </span>
                 );
