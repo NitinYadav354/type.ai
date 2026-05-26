@@ -81,10 +81,10 @@ export default function useTypingEngine() {
         }
         
         if (event.key.length === 1) {
-        if(status === 'idle') {
-            setStatus('typing')
+            if(status === 'idle') {
+                setStatus('typing')
 
-        }
+            }
         playsound()
         
         const expectedChar = targetText[inputTextRef.current.length]
@@ -103,7 +103,46 @@ export default function useTypingEngine() {
             timeStamp : timeStamp,
             isCorrect : isCorrect
         })
-    }
+        }
+
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            const expectedChar = targetText[inputTextRef.current.length]
+            const timeStamp = Date.now()
+            const isCorrect = '\n' === expectedChar
+            setInputText((prev) => {
+                const next = prev + '\n'
+                inputTextRef.current = next
+                return next
+            })
+            keyStrokesRef.current.push({
+                type: 'character',
+                expectedChar : expectedChar,
+                actualChar: '\n',
+                timeStamp : timeStamp,
+                isCorrect : isCorrect
+            }) 
+
+        }
+        if (event.key === 'Tab') {
+            event.preventDefault()
+            const expectedChar = targetText[inputTextRef.current.length]
+            const timeStamp = Date.now()
+            const isCorrect = '\t' === expectedChar
+            setInputText((prev) => {
+                const next = prev + '\t'
+                inputTextRef.current = next
+                return next
+            }
+            )
+            keyStrokesRef.current.push({
+                type: 'character',
+                expectedChar : expectedChar,
+                actualChar: '\t',
+                timeStamp : timeStamp,
+                isCorrect : isCorrect
+            })
+        }
 
 
     };

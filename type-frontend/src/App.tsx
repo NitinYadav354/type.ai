@@ -25,7 +25,6 @@ function App() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
       paddingTop: '10vh',
     }}>
       <div style = {{

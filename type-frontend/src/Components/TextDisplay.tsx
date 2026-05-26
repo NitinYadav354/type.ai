@@ -13,7 +13,7 @@ const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
             border: '1px solid #363636',
             width: '100%'
         }}>
-        <div style={{ fontSize: "1.5rem", lineHeight: "1.6", letterSpacing: "1px" }}>
+        <div style={{ fontSize: "1.5rem", lineHeight: "1.6", letterSpacing: "1px", whiteSpace: "pre-wrap" }}>
         <p>
             {targetText.split('').map((char, index) => {
             const typedchar = inputText[index]

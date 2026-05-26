@@ -37,11 +37,12 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
                 fontSize: '1.5rem',
                 lineHeight: '1.6',
                 letterSpacing: '1px',
-                wordWrap: 'break-word'
+                wordWrap: 'break-word',
+                whiteSpace: 'pre-wrap'
             }}>
                 
             {heatMapData.map((item, index) => {
-                const ratio = Math.min((item.time - threshold) / threshold,);
+                const ratio = Math.min((item.time - threshold) / threshold, 1);
                 
                 
                 const sat = (1- ratio) * 50;
