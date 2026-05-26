@@ -3,6 +3,7 @@ import { sendTelemetry } from '../Services/TelemeryAPI'
 import { calculateMetrics } from '../Utility/calculateMetrics'
 import clickSound from '../Assets/typeSound.mp3'
 import summarizeKeystrokes from '../Utility/summary_keystrokes'
+import textSamples from '../Assets/InputText.json'
 
 const playsound = () => {
     const audio = new Audio(clickSound)
@@ -28,14 +29,17 @@ interface controlEvent {
 type keyStrokeData = typingEvent | controlEvent
 
 export default function useTypingEngine() {
-
-    const targetText = 'I woke up early in the morning'
+    const [targetText] = useState(() => {
+        const randomIndex = Math.floor(Math.random() * textSamples.length)
+        return textSamples[randomIndex].text
+    })
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
     const [TimeTaken, setTimeTaken] = useState(0)
     const [wpm, setWpm] = useState(0)
     const [accuracy, setAccuracy] = useState(100)
     const keyStrokesRef = useRef<keyStrokeData[]>([])
+    const inputTextRef = useRef('')
 
     const FinishTest = async () => {
         const metrics = calculateMetrics(keyStrokesRef.current, inputText)
@@ -55,7 +59,7 @@ export default function useTypingEngine() {
             console.error('Failed to summarize keystrokes', err)
         }
     };
-useEffect(() => {
+    useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
         if (status === 'completed') return
 
@@ -64,7 +68,11 @@ useEffect(() => {
         }
 
         if (event.key === 'Backspace') {
-        setInputText((prev) => prev.slice(0, -1))
+        setInputText((prev) => {
+            const next = prev.slice(0, -1)
+            inputTextRef.current = next
+            return next
+        })
         keyStrokesRef.current.push({
             type: 'Backspace',
             timeStamp: Date.now()
@@ -75,15 +83,19 @@ useEffect(() => {
         if (event.key.length === 1) {
         if(status === 'idle') {
             setStatus('typing')
- 
+
         }
         playsound()
         
-        const expectedChar = targetText[inputText.length]
+        const expectedChar = targetText[inputTextRef.current.length]
         const timeStamp = Date.now()
         const isCorrect = event.key === expectedChar
 
-        setInputText((prev) => prev + event.key)
+        setInputText((prev) => {
+            const next = prev + event.key
+            inputTextRef.current = next
+            return next
+        })
         keyStrokesRef.current.push({
             type: 'character',
             expectedChar : expectedChar,
@@ -99,7 +111,7 @@ useEffect(() => {
     return () => {
         window.removeEventListener('keydown', handleKeyDown);
     };
-    }, [status, inputText]);
+    }, [status, targetText]);
 
     useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {

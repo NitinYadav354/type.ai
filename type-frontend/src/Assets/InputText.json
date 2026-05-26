@@ -1,0 +1,221 @@
+[
+  {
+    "id": 1,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "short",
+    "text": "the and for are but not you all can her was one our out day get"
+  },
+  {
+    "id": 2,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "medium",
+    "text": "the and for are but not you all can her was one our out day get has him his how man new now old see two way who boy did its let put say she too use"
+  },
+  {
+    "id": 3,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "long",
+    "text": "the and for are but not you all can her was one our out day get has him his how man new now old see two way who boy did its let put say she too use that with have this will your from they know want been good much some time very when come here just like long make many more only over such take than them then well also back after use two how our work first well way even new want because any these give day most us great between need large often hand high place world every found still learn should those never next open seem together show above often move try kind come hand picture again change off play spell air away animal house point letter mother answer found study still learn"
+  },
+
+  {
+    "id": 4,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "short",
+    "text": "The sun set behind the mountains, casting a golden glow across the valley below."
+  },
+  {
+    "id": 5,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "medium",
+    "text": "Scientists have discovered a new species of deep-sea fish near the Mariana Trench. The creature, found at depths exceeding 8,000 meters, uses bioluminescence to attract prey in complete darkness. Researchers believe it may hold clues to how life adapts to extreme pressure and temperature."
+  },
+  {
+    "id": 6,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "long",
+    "text": "The Industrial Revolution, which began in Britain during the late eighteenth century, fundamentally transformed the way human beings lived and worked. Factories replaced cottage industries, steam power displaced manual labor, and cities swelled with workers migrating from rural areas in search of wages. While this period produced remarkable technological advances and generated unprecedented economic growth, it also gave rise to harsh working conditions, child labor, and severe urban poverty. Historians continue to debate whether the net effect on ordinary people was positive or negative, and the answer likely depends on which generation and which social class one examines. What remains undeniable is that no corner of the world was left untouched by its consequences."
+  },
+
+  {
+    "id": 7,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "short",
+    "text": "The only way to do great work is to love what you do. — Steve Jobs"
+  },
+  {
+    "id": 8,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "medium",
+    "text": "It is not the strongest of the species that survives, nor the most intelligent, but the one most responsive to change. — Charles Darwin. In the middle of every difficulty lies opportunity. — Albert Einstein."
+  },
+  {
+    "id": 9,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "long",
+    "text": "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover. — Mark Twain. Success is not final, failure is not fatal: it is the courage to continue that counts. — Winston Churchill. Believe you can and you're halfway there. — Theodore Roosevelt. The purpose of our lives is to be happy. — Dalai Lama."
+  },
+
+  {
+    "id": 10,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "short",
+    "text": "She sells seashells by the seashore. The shells she sells are surely seashells."
+  },
+  {
+    "id": 11,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "medium",
+    "text": "Peter Piper picked a peck of pickled peppers. A peck of pickled peppers Peter Piper picked. If Peter Piper picked a peck of pickled peppers, where's the peck of pickled peppers Peter Piper picked? How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
+  },
+  {
+    "id": 12,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "long",
+    "text": "How much wood would a woodchuck chuck if a woodchuck could chuck wood? He would chuck, he would, as much as he could, and chuck as much wood as a woodchuck would if a woodchuck could chuck wood. Betty Botter bought some butter, but she said the butter's bitter. If I put it in my batter, it will make my batter bitter. But a bit of better butter will make my batter better. So she bought a bit of butter better than her bitter butter. I saw Susie sitting in a shoeshine shop. Where she sits she shines, and where she shines she sits. Fresh French fried fish, fresh French fried fish, fresh French fried fish. Red lorry, yellow lorry, red lorry, yellow lorry."
+  },
+
+  {
+    "id": 13,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "short",
+    "text": "Kal milte hain yaar, aaj bahut kaam hai office mein. Send kar na please."
+  },
+  {
+    "id": 14,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "medium",
+    "text": "Bhai teri baat sun, aaj meeting cancel ho gayi thi toh main soch raha tha ki movie chalein kya? Pooja bhi aa sakti hai, usse bhi bolo. Waise tu khana kha ke aana, bahar ka khana thoda expensive hai these days. Let me know kab free hai tu."
+  },
+  {
+    "id": 15,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "long",
+    "text": "Yaar seriously kal ka din bahut tiring tha. Pehle office mein 9 baje se meeting shuru ho gayi, phir lunch bhi theek se nahi mila. Upar se boss ne last minute pe ek aur presentation maang li. Mujhe lagta hai hum sab ko ek chhoti si trip plan karni chahiye, kahin pahaadon mein ya beach pe jaake thoda relax karein. Sharma ji ke bete ki shaadi bhi aa rahi hai agle mahine toh ek baar soch ke bata na. Aur haan, Rohan ko bhi forward kar yeh message, woh bhi bata raha tha ki kuch din ki break chahiye usse. Main evening mein call karta hoon, tab properly baat karte hain sab baare mein."
+  },
+
+  {
+    "id": 16,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "short",
+    "text": "Please find attached the revised proposal as discussed in our meeting. Kindly review and share your feedback at your earliest convenience."
+  },
+  {
+    "id": 17,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "medium",
+    "text": "Dear Mr. Sharma, I hope this message finds you well. I am writing to follow up on our discussion regarding the Q3 budget allocation. As per our agreement, the finance team will submit the revised figures by Thursday, 29th May. Should you require any additional information prior to the review meeting, please do not hesitate to reach out. Warm regards, Ankit Verma, Senior Manager — Finance Operations."
+  },
+  {
+    "id": 18,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "long",
+    "text": "Subject: Strategic Review — FY2026 Roadmap Alignment. Dear Team, Following last week's leadership offsite, I wanted to consolidate the key takeaways and outline our path forward for the remainder of the fiscal year. Our primary focus areas will be revenue diversification, operational efficiency, and talent retention. Each business unit head is requested to submit a revised OKR document by June 15th, clearly mapping team objectives to the three pillars mentioned above. The PMO will schedule bi-weekly syncs beginning the first week of July to track progress against milestones. Please ensure that all dependencies are flagged in advance to avoid bottlenecks during execution. I appreciate your continued dedication and look forward to a strong close to FY2026. Best regards, Priya Malhotra, Chief Operating Officer."
+  },
+
+  {
+    "id": 19,
+    "type": "code",
+    "subtype": "python",
+    "length": "short",
+    "text": "def greet(name):\n    return f\"Hello, {name}!\"\n\nprint(greet(\"World\"))"
+  },
+  {
+    "id": 20,
+    "type": "code",
+    "subtype": "python",
+    "length": "medium",
+    "text": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr\n\nnumbers = [64, 34, 25, 12, 22, 11, 90]\nprint(bubble_sort(numbers))"
+  },
+  {
+    "id": 21,
+    "type": "code",
+    "subtype": "python",
+    "length": "long",
+    "text": "import os\nimport json\nfrom datetime import datetime\n\nclass TaskManager:\n    def __init__(self, filepath=\"tasks.json\"):\n        self.filepath = filepath\n        self.tasks = self._load()\n\n    def _load(self):\n        if os.path.exists(self.filepath):\n            with open(self.filepath, \"r\") as f:\n                return json.load(f)\n        return []\n\n    def add_task(self, title, priority=\"medium\"):\n        task = {\n            \"id\": len(self.tasks) + 1,\n            \"title\": title,\n            \"priority\": priority,\n            \"done\": False,\n            \"created_at\": datetime.now().isoformat()\n        }\n        self.tasks.append(task)\n        self._save()\n\n    def complete_task(self, task_id):\n        for task in self.tasks:\n            if task[\"id\"] == task_id:\n                task[\"done\"] = True\n        self._save()\n\n    def _save(self):\n        with open(self.filepath, \"w\") as f:\n            json.dump(self.tasks, f, indent=2)\n\n    def list_tasks(self):\n        for task in self.tasks:\n            status = \"✓\" if task[\"done\"] else \"✗\"\n            print(f\"[{status}] {task['id']}. {task['title']} ({task['priority']})\")\n\nif __name__ == \"__main__\":\n    tm = TaskManager()\n    tm.add_task(\"Write unit tests\", \"high\")\n    tm.add_task(\"Update documentation\", \"low\")\n    tm.complete_task(1)\n    tm.list_tasks()"
+  },
+
+  {
+    "id": 22,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "short",
+    "text": "const greet = (name) => `Hello, ${name}!`;\nconsole.log(greet(\"World\"));"
+  },
+  {
+    "id": 23,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "medium",
+    "text": "async function fetchUser(userId) {\n    try {\n        const response = await fetch(`https://api.example.com/users/${userId}`);\n        if (!response.ok) throw new Error(\"User not found\");\n        const data = await response.json();\n        return data;\n    } catch (error) {\n        console.error(\"Error:\", error.message);\n        return null;\n    }\n}\n\nfetchUser(42).then(user => console.log(user));"
+  },
+  {
+    "id": 24,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "long",
+    "text": "class EventEmitter {\n    constructor() {\n        this.events = {};\n    }\n\n    on(event, listener) {\n        if (!this.events[event]) {\n            this.events[event] = [];\n        }\n        this.events[event].push(listener);\n        return this;\n    }\n\n    off(event, listener) {\n        if (!this.events[event]) return this;\n        this.events[event] = this.events[event].filter(l => l !== listener);\n        return this;\n    }\n\n    emit(event, ...args) {\n        if (!this.events[event]) return false;\n        this.events[event].forEach(listener => listener(...args));\n        return true;\n    }\n\n    once(event, listener) {\n        const wrapper = (...args) => {\n            listener(...args);\n            this.off(event, wrapper);\n        };\n        return this.on(event, wrapper);\n    }\n}\n\nconst emitter = new EventEmitter();\nemitter.on(\"data\", (msg) => console.log(\"Received:\", msg));\nemitter.once(\"connect\", () => console.log(\"Connected!\"));\nemitter.emit(\"connect\");\nemitter.emit(\"data\", \"Hello World\");\nemitter.emit(\"connect\"); // no output, once already fired"
+  },
+
+  {
+    "id": 25,
+    "type": "code",
+    "subtype": "sql",
+    "length": "short",
+    "text": "SELECT name, email FROM users WHERE active = 1 ORDER BY created_at DESC LIMIT 10;"
+  },
+  {
+    "id": 26,
+    "type": "code",
+    "subtype": "sql",
+    "length": "medium",
+    "text": "SELECT u.name, COUNT(o.id) AS total_orders, SUM(o.amount) AS total_spent\nFROM users u\nJOIN orders o ON u.id = o.user_id\nWHERE o.status = 'completed'\n  AND o.created_at >= DATE_SUB(NOW(), INTERVAL 90 DAY)\nGROUP BY u.id, u.name\nHAVING total_orders >= 3\nORDER BY total_spent DESC;"
+  },
+  {
+    "id": 27,
+    "type": "code",
+    "subtype": "sql",
+    "length": "long",
+    "text": "WITH monthly_revenue AS (\n    SELECT\n        DATE_FORMAT(o.created_at, '%Y-%m') AS month,\n        p.category,\n        SUM(oi.quantity * oi.unit_price) AS revenue\n    FROM orders o\n    JOIN order_items oi ON o.id = oi.order_id\n    JOIN products p ON oi.product_id = p.id\n    WHERE o.status = 'completed'\n      AND o.created_at BETWEEN '2025-01-01' AND '2025-12-31'\n    GROUP BY month, p.category\n),\nranked AS (\n    SELECT\n        month,\n        category,\n        revenue,\n        RANK() OVER (PARTITION BY month ORDER BY revenue DESC) AS rnk\n    FROM monthly_revenue\n)\nSELECT month, category, revenue\nFROM ranked\nWHERE rnk <= 3\nORDER BY month ASC, rnk ASC;"
+  },
+
+  {
+    "id": 28,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "short",
+    "text": "#include <iostream>\nusing namespace std;\nint main() {\n    cout << \"Hello, World!\" << endl;\n    return 0;\n}"
+  },
+  {
+    "id": 29,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "medium",
+    "text": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint binarySearch(vector<int>& arr, int target) {\n    int left = 0, right = arr.size() - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (arr[mid] == target) return mid;\n        else if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}\n\nint main() {\n    vector<int> nums = {1, 3, 5, 7, 9, 11, 13};\n    cout << binarySearch(nums, 7) << endl;\n    return 0;\n}"
+  },
+  {
+    "id": 30,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "long",
+    "text": "#include <iostream>\n#include <stack>\n#include <string>\n#include <unordered_map>\nusing namespace std;\n\nbool isBalanced(const string& expr) {\n    stack<char> st;\n    unordered_map<char, char> pairs = {\n        {')', '('},\n        {']', '['},\n        {'}', '{'}\n    };\n    for (char ch : expr) {\n        if (ch == '(' || ch == '[' || ch == '{') {\n            st.push(ch);\n        } else if (pairs.count(ch)) {\n            if (st.empty() || st.top() != pairs[ch]) {\n                return false;\n            }\n            st.pop();\n        }\n    }\n    return st.empty();\n}\n\nint main() {\n    vector<string> tests = {\n        \"{[()]}\",\n        \"((()))\",\n        \"{[(])}\",\n        \"[{]\"\n    };\n    for (const auto& t : tests) {\n        cout << t << \" -> \" << (isBalanced(t) ? \"Balanced\" : \"Not Balanced\") << endl;\n    }\n    return 0;\n}"
+  }
+]
