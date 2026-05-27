@@ -17,7 +17,7 @@ const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
         <p>
             {targetText.split('').map((char, index) => {
             const typedchar = inputText[index]
-            let color = '#646669'
+            let color = '#6B7280'
             if (typedchar !== undefined) {
                 if(typedchar === char) {
                 color = '#d1d0c5'

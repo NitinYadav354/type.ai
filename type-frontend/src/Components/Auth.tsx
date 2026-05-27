@@ -1,8 +1,11 @@
-import { GoogleLogin } from "@react-oauth/google"
+import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import axios from "axios"
 import { getOrCreateGuestID } from "../Utility/userGuestID"
 
 export default function Auth() {
+  const token = localStorage.getItem('AuthToken')
+  const userDataString = localStorage.getItem('userData')
+  const user = userDataString ? JSON.parse(userDataString) : null
     const handleLoginSuccess = async (credentialResponse: any) => {
         try {
             const { credential } = credentialResponse
@@ -14,27 +17,44 @@ export default function Auth() {
             })
             console.log('Login successful:', response.data)
 
-            localStorage.setItem('authToken', response.data.token)
-            localStorage.setItem('userId', response.data.userId)
-            window.location.reload()
+            localStorage.setItem('AuthToken', response.data.token)
+      localStorage.setItem('userData', JSON.stringify(response.data.user))
+      globalThis.location.reload()
         } catch (error) {
             console.error('Login failed:', error)
         }   
     }
 
+    const handleLogout = () => {
+        googleLogout()
+        localStorage.removeItem('AuthToken')
+      localStorage.removeItem('userData')
+      globalThis.location.reload()
+    }
+
 
     return (
-    <div style={{ padding: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-    
-      {localStorage.getItem('authToken') ? (
-        <span>Welcome back!</span>
+    <div className="auth-shell">
+      {token && user ? (
+        <>
+          <span className="auth-user-name">
+            Welcome, {user.name}
+          </span>
+          <div className="auth-logout-wrapper">
+            <button 
+              onClick={handleLogout}
+              className="auth-logout-button"
+            >
+              ⏻
+            </button>
+            <div className="hover-text">Logout</div>
+          </div>
+        </>
       ) : (
         <GoogleLogin
           onSuccess={handleLoginSuccess}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        useOneTap
+          onError={() => console.log('Login Failed')}
+          useOneTap
         />
       )}
     </div>

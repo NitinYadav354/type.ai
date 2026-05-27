@@ -15,6 +15,8 @@ type ControlEvent = {
 type KeyStrokeData = TypingEvent | ControlEvent
 
 const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: string}) => {
+    let sum = 0;
+    let sumSat = 0;
     if (!keyStrokes || keyStrokes.length < 2 || !text) return null;
 
     const heatMapData = buildHeatMapData(keyStrokes, text)
@@ -40,13 +42,17 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
                 wordWrap: 'break-word',
                 whiteSpace: 'pre-wrap'
             }}>
+
                 
             {heatMapData.map((item, index) => {
-                const ratio = Math.min((item.time - threshold) / threshold, 1);
-                
+                const ratio = ((item.time - threshold) / threshold);
+                //sum of ratios
+                sum += ratio;
                 
                 const sat = (1- ratio) * 50;
+                sumSat += sat;
                 console.log("RATIO: ", ratio, "sat:", sat, "char", item.char, "time:", item.time)
+                console.log("SUM:", sum, "SUMSAT:", sumSat)
                 
                 const displayChar = item.char === ' ' ? '_' : item.char;
 

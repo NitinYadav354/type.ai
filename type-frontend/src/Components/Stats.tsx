@@ -12,31 +12,31 @@ const Stats = ({ status, TimeTaken, wpm, accuracy}: StatsProps) => {
     display: 'flex', 
     gap: '2rem',
     marginTop: '2rem',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     opacity: status === 'completed' ? 1 : 0.4,
     transition: 'opacity 0.3s ease'
   }}>
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#646669' }}>time</span>
-      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{TimeTaken}s</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>time</span>
+      <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{TimeTaken}s</span>
     </div>
 
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#646669' }}>wpm</span>
-      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{wpm}</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>wpm</span>
+      <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{wpm}</span>
     </div>
 
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#646669' }}>acc</span>
-      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{Math.round(accuracy)}%</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>acc</span>
+      <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{Math.round(accuracy)}%</span>
     
     </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#646669' }}>Net WPM</span>
-      <span style={{ fontSize: '1.8rem', color: '#e2b714', fontWeight: 'bold' }}>{Math.round(wpm*accuracy/100)}</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>Net WPM</span>
+      <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{Math.round(wpm*accuracy/100)}</span>
     </div>
   </div>
 )
