@@ -43,7 +43,7 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
                 whiteSpace: 'pre-wrap'
             }}>
 
-                
+            <p className="title" style={{ textAlign: 'left', marginBottom: '1rem', fontSize: '1.25rem' }}>Speed Variance Heatmap</p>
             {heatMapData.map((item, index) => {
                 const ratio = ((item.time - threshold) / threshold);
                 //sum of ratios
