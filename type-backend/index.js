@@ -83,7 +83,7 @@ app.post('/api/session', async (req, res) => {
     }
 })
 
-app.post('/ping', (req, res) => {
+app.get('/ping', (req, res) => {
     res.status(200).send('pong')
 })
 
