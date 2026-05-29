@@ -11,7 +11,7 @@ export default function Auth() {
             const { credential } = credentialResponse
 
             const guestID = getOrCreateGuestID()
-            const response = await axios.post('http://localhost:3000/api/auth/google', {
+            const response = await axios.post('https://typeai-backend.onrender.com/api/auth/google', {
                 token: credential,
                 guestID: guestID
             })
