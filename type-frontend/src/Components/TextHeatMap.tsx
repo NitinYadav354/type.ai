@@ -51,8 +51,8 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
                 
                 const sat = (1- ratio) * 50;
                 sumSat += sat;
-                console.log("RATIO: ", ratio, "sat:", sat, "char", item.char, "time:", item.time)
-                console.log("SUM:", sum, "SUMSAT:", sumSat)
+                // console.log("RATIO: ", ratio, "sat:", sat, "char", item.char, "time:", item.time)
+                // console.log("SUM:", sum, "SUMSAT:", sumSat)
                 
                 const displayChar = item.char === ' ' ? '_' : item.char;
 

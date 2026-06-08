@@ -4,6 +4,7 @@ import { calculateMetrics } from '../Utility/calculateMetrics'
 import clickSound from '../Assets/typeSound.mp3'
 import summarizeKeystrokes from '../Utility/summary_keystrokes'
 import textSamples from '../Assets/InputText.json'
+import {optimseKeystroke} from '../Utility/optimseKeystroke'
 
 const playsound = () => {
     const audio = new Audio(clickSound)
@@ -31,7 +32,7 @@ type keyStrokeData = typingEvent | controlEvent
 export default function useTypingEngine() {
     const [targetText] = useState(() => {
         const randomIndex = Math.floor(Math.random() * textSamples.length)
-        return textSamples[randomIndex].text
+        return textSamples[6].text
     })
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
@@ -54,6 +55,7 @@ export default function useTypingEngine() {
         console.log("Telemetry Payload:", buildTelemetryPayload)
         try {
             const summary = summarizeKeystrokes(keyStrokesRef.current)
+            optimseKeystroke(keyStrokesRef.current)
             console.log('Keystroke Summary:', summary)
         } catch (err) {
             console.error('Failed to summarize keystrokes', err)

@@ -21,9 +21,8 @@ export function heatMapData(keyStrokes: KeyStrokeData[], text: string): CharTime
     const heatMap: CharTimeType[] = []
     let x = 0;
     let prevTimestamp = keyStrokes[0]?.timeStamp || 0;
-    for (let i = 0; i < text.length; i++) {
+    for (const char of text) {
         while (x < keyStrokes.length) {
-        const char = text[i]
         if (keyStrokes[x].type === 'character' && (keyStrokes[x] as TypingEvent).actualChar === char){
             const currTimestamp = (keyStrokes[x] as TypingEvent).timeStamp
             const timediff = currTimestamp - prevTimestamp
