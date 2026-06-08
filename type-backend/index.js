@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import User from './Models/User.js'
 import { OAuth2Client } from 'google-auth-library'
 import jwt from 'jsonwebtoken'
+import {GoogleGenerativeAI} from '@google/generative-ai'
 
 
 dotenv.config()
@@ -85,6 +86,34 @@ app.post('/api/session', async (req, res) => {
 
 app.get('/ping', (req, res) => {
     res.status(200).send('pong')
+})
+
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY)
+app.post('/api/coach', async (req, res) => {
+    try {
+        const { actualChars, expectedChars, time_taken } = req.body
+        console.log("Received coaching request with data:", { actualChars, expectedChars, time_taken })
+        const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
+        const prompt = `You are an expert, encouraging typing coach for an app called Type.AI. 
+      Analyze the following user typing session data:
+      typed text ${JSON.stringify(actualChars)}
+      expected text ${JSON.stringify(expectedChars)}
+      time taken ${JSON.stringify(time_taken)}
+      
+      Instructions:
+      1. Write exactly 2 or 3 short sentences.
+      2. Be highly specific about the keys they struggled with.
+      3. Give one practical, physical piece of advice on how to improve those specific keys.
+      4. Speak directly to the user (e.g., "I noticed you...").
+      5. Do not use markdown formatting like bolding or asterisks.`
+      
+        const response = await model.generateContent(prompt)
+        res.status(200).json({ feedback: response })
+    }
+    catch (err) {
+        console.error("Error generating coaching feedback:", err)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
 })
 
 const PORT = process.env.PORT || 3000
