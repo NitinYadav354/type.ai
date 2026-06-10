@@ -18,13 +18,13 @@ interface typingEvent {
     type : 'character',
     expectedChar : string,
     actualChar : string,
-    timeStamp : number,
+    time : number,
     isCorrect : boolean
 }
 
 interface controlEvent {
     type : 'Backspace',
-    timeStamp : number
+    time : number
 }
 
 type keyStrokeData = typingEvent | controlEvent
@@ -41,6 +41,7 @@ export default function useTypingEngine() {
     const [accuracy, setAccuracy] = useState(100)
     const keyStrokesRef = useRef<keyStrokeData[]>([])
     const inputTextRef = useRef('')
+    const previousTimeRef = useRef<number | null>(null)
 
     const FinishTest = async () => {
         const metrics = calculateMetrics(keyStrokesRef.current, inputText)
@@ -70,6 +71,8 @@ export default function useTypingEngine() {
         }
 
         if (event.key === 'Backspace') {
+        const now = Date.now()
+        const time = previousTimeRef.current === null ? 0 : now - previousTimeRef.current
         setInputText((prev) => {
             const next = prev.slice(0, -1)
             inputTextRef.current = next
@@ -77,8 +80,9 @@ export default function useTypingEngine() {
         })
         keyStrokesRef.current.push({
             type: 'Backspace',
-            timeStamp: Date.now()
+            time : time
         })
+        previousTimeRef.current = now
         return
         }
         
@@ -90,7 +94,8 @@ export default function useTypingEngine() {
         playsound()
         
         const expectedChar = targetText[inputTextRef.current.length]
-        const timeStamp = Date.now()
+        const now = Date.now()
+        const time = previousTimeRef.current === null ? 0 : now - previousTimeRef.current
         const isCorrect = event.key === expectedChar
 
         setInputText((prev) => {
@@ -102,15 +107,17 @@ export default function useTypingEngine() {
             type: 'character',
             expectedChar : expectedChar,
             actualChar: event.key,
-            timeStamp : timeStamp,
+            time : time,
             isCorrect : isCorrect
         })
+        previousTimeRef.current = now
         }
 
         if (event.key === 'Enter') {
             event.preventDefault()
             const expectedChar = targetText[inputTextRef.current.length]
-            const timeStamp = Date.now()
+            const now = Date.now()
+            const time = previousTimeRef.current === null ? 0 : now - previousTimeRef.current
             const isCorrect = '\n' === expectedChar
             setInputText((prev) => {
                 const next = prev + '\n'
@@ -121,15 +128,17 @@ export default function useTypingEngine() {
                 type: 'character',
                 expectedChar : expectedChar,
                 actualChar: '\n',
-                timeStamp : timeStamp,
+                time : time,
                 isCorrect : isCorrect
             }) 
+            previousTimeRef.current = now
 
         }
         if (event.key === 'Tab') {
             event.preventDefault()
             const expectedChar = targetText[inputTextRef.current.length]
-            const timeStamp = Date.now()
+            const now = Date.now()
+            const time = previousTimeRef.current === null ? 0 : now - previousTimeRef.current
             const isCorrect = '\t' === expectedChar
             setInputText((prev) => {
                 const next = prev + '\t'
@@ -141,9 +150,10 @@ export default function useTypingEngine() {
                 type: 'character',
                 expectedChar : expectedChar,
                 actualChar: '\t',
-                timeStamp : timeStamp,
+                time : time,
                 isCorrect : isCorrect
             })
+            previousTimeRef.current = now
         }
 
 
