@@ -2,13 +2,13 @@ type TypingEvent = {
     type: 'character'
     actualChar: string
     expectedChar: string
-    timeStamp: number
+    time: number
     isCorrect: boolean
 }
 
 type ControlEvent = {
     type: 'Backspace'
-    timeStamp: number
+    time: number
 }
 
 type KeyStrokeData = TypingEvent | ControlEvent
@@ -19,7 +19,7 @@ export function optimseKeystroke(keyStrokes: KeyStrokeData[]){
         acc.actualChars.push(curr.type === 'character' ? curr.actualChar : 'Backspace');
         acc.expectedChars.push(curr.type === 'character' ? (curr as TypingEvent).expectedChar : 'Backspace');
         acc.time_taken.push(
-            index === 0 ? 0 : curr.timeStamp - keyStrokes[index - 1].timeStamp
+            curr.time
         );
 
         return acc;
