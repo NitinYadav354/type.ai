@@ -55,4 +55,3 @@ export function calculateMetrics(keyStrokes: any[], inputText: string) {
     missedKeysMap
 }
 }
-

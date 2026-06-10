@@ -2,14 +2,15 @@ import { heatMapData as buildHeatMapData } from '../Utility/heatMapData'
 
 type TypingEvent = {
     type: 'character'
+    expectedChar: string
     actualChar: string
-    timeStamp: number
+    time: number
     isCorrect: boolean
 }
 
 type ControlEvent = {
     type: 'Backspace'
-    timeStamp: number
+    time: number
 }
 
 type KeyStrokeData = TypingEvent | ControlEvent
@@ -23,7 +24,7 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
     console.log('Character Time Data:', heatMapData)
     
     const threshold = text.length > 0
-        ? ((keyStrokes[keyStrokes.length - 1].timeStamp - keyStrokes[0].timeStamp) / text.length)
+        ? (keyStrokes.reduce((sum, event) => sum + (event.time ?? 0), 0) / text.length)
         : 0
 
     return(

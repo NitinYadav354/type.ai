@@ -2,7 +2,6 @@ import { useEffect, useRef, useState} from 'react'
 import { sendTelemetry } from '../Services/TelemeryAPI'
 import { calculateMetrics } from '../Utility/calculateMetrics'
 import clickSound from '../Assets/typeSound.mp3'
-import summarizeKeystrokes from '../Utility/summary_keystrokes'
 import textSamples from '../Assets/InputText.json'
 import {optimseKeystroke} from '../Utility/optimseKeystroke'
 
@@ -55,9 +54,7 @@ export default function useTypingEngine() {
         console.log("keystrokes:", keyStrokesRef.current)
         console.log("Telemetry Payload:", buildTelemetryPayload)
         try {
-            const summary = summarizeKeystrokes(keyStrokesRef.current)
-            optimseKeystroke(keyStrokesRef.current)
-            console.log('Keystroke Summary:', summary)
+            // optimseKeystroke(keyStrokesRef.current)
         } catch (err) {
             console.error('Failed to summarize keystrokes', err)
         }
