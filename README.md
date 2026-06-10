@@ -89,6 +89,10 @@ npm run dev
 * The static frontend is distributed globally via Vercel's CDN, ensuring instant load times.
 * The backend runs on a Render web service, secured by strictly configured CORS policies that only accept requests from the authenticated frontend domain.
 
+### Performance Reports
+Performance after v1 deployment: </br>
+https://pagespeed.web.dev/analysis/https-typeai-nitinyadav-dev/ojedgf2qla?form_factor=desktop
+
 ### Contributing
 * Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/NitinYadav354/type.ai/issues).
 
