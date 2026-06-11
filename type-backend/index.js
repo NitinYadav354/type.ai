@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 import User from './Models/User.js'
 import { OAuth2Client } from 'google-auth-library'
 import jwt from 'jsonwebtoken'
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenAI, Type} from '@google/genai';
 
 
 dotenv.config()
@@ -16,6 +16,7 @@ app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     credentials: true
 }))
+app.use(express.text({ type: ['text/plain', 'text/*'] }))
 app.use(express.json())
 
 //connect to MongoDB
@@ -64,10 +65,10 @@ app.post('/api/auth/google', async (req, res) => {
     })
 
 
-// const MONGO_URI = process.env.MONGO_URI
-// mongoose.connect(MONGO_URI)
-//     .then(() => console.log("Connected to MongoDB"))
-//     .catch((err) => console.error("Error connecting to MongoDB:", err))
+const MONGO_URI = process.env.MONGO_URI
+mongoose.connect(MONGO_URI)
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.error("Error connecting to MongoDB:", err))
 
 // Define routes
 app.post('/api/session', async (req, res) => {
@@ -93,104 +94,76 @@ const ai = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 const typingAnalysisSchema = {
     type: Type.OBJECT,
     properties: {
-        overall_assessment: { type: Type.STRING },
-        rhythm_profile: { type: Type.STRING },
-        consistency_assessment: { type: Type.STRING },
-        flow_analysis: {
-            type: Type.OBJECT,
-            properties: {
-                strong_flow_regions: { type: Type.ARRAY, items: { type: Type.STRING } },
-                flow_breaks: { type: Type.ARRAY, items: { type: Type.STRING } }
-            }
-        },
-        error_behavior: {
-            type: Type.OBJECT,
-            properties: {
-                correction_style: { type: Type.STRING },
-                recovery_efficiency: { type: Type.STRING },
-                notable_patterns: { type: Type.ARRAY, items: { type: Type.STRING } }
-            }
-        },
-        confidence_analysis: {
-            type: Type.OBJECT,
-            properties: {
-                high_confidence_regions: { type: Type.ARRAY, items: { type: Type.STRING } },
-                low_confidence_regions: { type: Type.ARRAY, items: { type: Type.STRING } }
-            }
-        },
-        timing_patterns: {
-            type: Type.OBJECT,
-            properties: {
-                unusual_delays: { type: Type.ARRAY, items: { type: Type.STRING } },
-                repeated_slowdowns: { type: Type.ARRAY, items: { type: Type.STRING } }
-            }
-        },
-        character_difficulty_patterns: { type: Type.ARRAY, items: { type: Type.STRING } },
-        hidden_insights: { type: Type.ARRAY, items: { type: Type.STRING } },
-        strengths: { type: Type.ARRAY, items: { type: Type.STRING } },
-        weaknesses: { type: Type.ARRAY, items: { type: Type.STRING } },
-        coaching_recommendations: { type: Type.ARRAY, items: { type: Type.STRING } },
-        session_summary: { type: Type.STRING }
-    }
-};
+        headline:       { type: Type.STRING },
+        strengths:      { type: Type.ARRAY,  items: { type: Type.STRING }, minItems: 1, maxItems: 2 },
+        weaknesses:     { type: Type.ARRAY,  items: { type: Type.STRING }, minItems: 1, maxItems: 2 },
+        insights:       { type: Type.ARRAY,  items: { type: Type.STRING }, minItems: 1, maxItems: 2 },
+        focus:          { type: Type.STRING },
+        practicePrompt: { type: Type.STRING }
+    },
+    required: ["headline", "strengths", "weaknesses", "insights", "focus", "practicePrompt"]
+        }
 
 app.post('/api/coach', async (req, res) => {
     try {
-        const { type, expectedChar ,actualChar, timeStamp, isCorrect  } = req.body
+        const events = req.body
+
         const response = await ai.models.generateContent({
-            model: "gemma-4-26b-a4b-it",
-            contents:
-            `
-                type: ${type}
-                actualChar: ${JSON.stringify(actualChar)}
-                expectedChar: ${JSON.stringify(expectedChar)}
-                timeStamp: ${JSON.stringify(timeStamp)}
-                isCorrect: ${JSON.stringify(isCorrect)}
-            `,
+            model: "gemini-3.1-flash-lite",
+            contents: JSON.stringify(events, null, 0),
             config: {
                 thinkingConfig: {
                     includeThoughts: true,
-                    thinkingBudget: 0
+                    thinkingBudget: -1
                 },
                 temperature: 0.1,
-                systemInstruction: `You are an expert in motor learning, typing performance, human-computer interaction, and behavioral pattern analysis.
-                You are analyzing a typing test session.
+                systemInstruction: `You are an expert in motor learning, typing performance, and behavioral pattern analysis.
+You are analyzing a typing test session.
+
+Important context:
+* The user is copying text displayed on screen — no composition, no recall.
+* Delays reflect typing behavior: visual processing, motor execution, rhythm, error detection.
+* Backspace events are intentional corrections. All errors are eventually corrected.
+* Data schema: array of events.
+  {"c","t"} = correct keystroke (char, ms since last keystroke).
+  {"c","x","t"} = error (c = typed, x = expected, ms).
+  {"b","t"} = backspace (ms since last event).
+
+Internally reason across all of the following before writing your response:
+- Rhythm and cadence: bursts, deceleration, acceleration
+- Flow: automatic sections vs momentum breaks
+- Error behavior: correction style, recovery speed, hesitation patterns
+- Consistency: timing stability, anomalous slow actions
+- Character difficulty: weak transitions, awkward finger movements
+- Confidence: high/low confidence regions
+- Correction intelligence: detection latency, precision
+- Hidden patterns: non-obvious behaviors an expert coach would notice
+
+Output instructions:
+* Write for a non-technical user. No jargon. Plain English.
+* Translate clinical observations into relatable language.
+  BAD: "bilateral asymmetry in inter-keystroke intervals"
+  GOOD: "your left hand is noticeably faster than your right"
+  BAD: "cognitive reset during lexical boundary transitions"
+  GOOD: "you briefly pause before longer or unfamiliar words"
+* headline: one punchy sentence. The defining trait of this session. ≤ 20 words. Should feel like something a coach would say, not a report.
+* strengths: 1-2 things the user genuinely does well, with a brief why. ≤ 30 words each.
+* weaknesses: 1-2 specific patterns holding them back, explained simply. ≤ 30 words each.
+* focus: the single most important drill this week. Concrete and specific. ≤ 25 words.
+* practicePrompt: comma-separated text characteristics only — word length, 
+  frequency, punctuation density, specific patterns. No behavior instructions 
+  ('fast', 'smooth') — describe the text, not how to type it. Target and 
+  stress-test weaknesses. No sentences. Injected directly into a text generator.
+  Example: "frequent hyphens, words starting with w and d, mix of short and 
+  long words, back-to-back pairs like 'to do', 'the way'`,
                 
-                Important context:
-                * The user is copying text displayed on the screen.
-                * The user is not composing thoughts, recalling information, or creating content.
-                * Assume no tab switching, notifications, multitasking, or external distractions.
-                * Delays should be interpreted primarily as typing behavior, visual processing, motor execution, rhythm changes, error detection, or correction behavior.
-                * Backspace events represent intentional corrections.
-                * The user must finish the test with zero final errors, so all errors are eventually corrected.
-                
-                Your goal is NOT to focus on basic metrics such as WPM or accuracy.
-                Instead, perform a deep behavioral analysis of the typing session.
-                
-                Analyze the following:
-                1. Rhythm Analysis: Describe overall rhythm, bursts, cadence, acceleration/deceleration.
-                2. Flow Analysis: Identify automatic sections and momentum breaks, explaining triggers.
-                3. Error Behavior: Analyze correction sequences (immediate/delayed), recovery efficiency, and hesitation.
-                4. Consistency Analysis: Measure timing stability and identify unusual/recurring slow actions.
-                5. Character and Transition Difficulty: Detect difficult characters, weak patterns, and awkward movements.
-                6. Confidence Indicators: Identify high/low confidence regions based on timing/corrections.
-                7. Correction Intelligence: Evaluate self-monitoring, error detection speed, and correction precision.
-                8. Hidden Behavioral Insights: Identify non-obvious patterns an expert coach would notice.
-                9. Personalized Coaching: List top strengths, weaknesses, and prioritized concrete recommendations.
-                10. Session Summary: Write a concise, insightful profile.
-                
-                Requirements:
-                * Do not mention WPM unless necessary.
-                * Do not simply describe the data; explain reasoning behind conclusions.
-                * Focus on actionable observations.
-                * Distinguish between strong and weak evidence.
-                * Avoid generic typing advice.`,
-                
-                responseMimeType: "application/json"
+                responseMimeType: "application/json",
+                responseSchema: typingAnalysisSchema
             }
         });
 
-        const analysisData = JSON.parse(response.text);
+        const rawText = response.text.trim()
+        const analysisData = JSON.parse(rawText.slice(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1))
         const metadata = response.usageMetadata;
         const modelUsed = response.modelVersion;
         const thinkingTokens = metadata.thoughtsTokenCount || 0;
