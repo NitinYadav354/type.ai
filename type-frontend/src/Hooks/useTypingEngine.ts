@@ -3,7 +3,7 @@ import { sendTelemetry } from '../Services/TelemeryAPI'
 import { calculateMetrics } from '../Utility/calculateMetrics'
 import clickSound from '../Assets/typeSound.mp3'
 import textSamples from '../Assets/InputText.json'
-import {optimseKeystroke} from '../Utility/optimseKeystroke'
+import {optimiseKeystroke} from '../Utility/optimseKeystroke'
 
 const playsound = () => {
     const audio = new Audio(clickSound)
@@ -54,7 +54,8 @@ export default function useTypingEngine() {
         console.log("keystrokes:", keyStrokesRef.current)
         console.log("Telemetry Payload:", buildTelemetryPayload)
         try {
-            // optimseKeystroke(keyStrokesRef.current)
+            const optimisedKeystrokes = optimiseKeystroke(keyStrokesRef.current)
+            console.log("Optimized Keystrokes:", optimisedKeystrokes)
         } catch (err) {
             console.error('Failed to summarize keystrokes', err)
         }
