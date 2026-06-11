@@ -162,29 +162,14 @@ Output instructions:
             }
         });
 
-        const rawText = response.text.trim()
-        const analysisData = JSON.parse(rawText.slice(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1))
+        const analysisData = JSON.parse(response.text)
         const metadata = response.usageMetadata;
         const modelUsed = response.modelVersion;
         const thinkingTokens = metadata.thoughtsTokenCount || 0;
         const wasThinkingEnabled = thinkingTokens > 0;
 
-        console.log("Prompt Tokens:", metadata.promptTokenCount);
-        console.log("Output Tokens:", metadata.candidatesTokenCount);
-        console.log("Total Tokens:", metadata.totalTokenCount);
-        console.log("Model Used:", modelUsed);
-        console.log("Thinking Enabled:", wasThinkingEnabled);
-
         return res.status(200).json({ 
-            feedback: analysisData,
-            usage: {
-                promptTokens: metadata.promptTokenCount,
-                completionTokens: metadata.candidatesTokenCount,
-                totalTokens: metadata.totalTokenCount,
-                modelUsed: modelUsed,
-                thinkingEnabled: wasThinkingEnabled,
-                thinkingTokens: thinkingTokens
-            }
+            feedback: analysisData
         });
     }
     catch (err) {
