@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {getOrCreateGuestID} from '../Utility/userGuestID'
 
-const TELEMETRY_ENDPOINT = 'https://typeai-backend.onrender.com/api/session';
+const TELEMETRY_ENDPOINT = `${import.meta.env.VITE_API_URL}/api/session`;
 
 export async function sendTelemetry(metrics: any) {
 
