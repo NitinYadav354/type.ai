@@ -4,6 +4,9 @@ import useTypingEngine from './Hooks/useTypingEngine'
 import TextHeatMap from './Components/TextHeatMap'
 import Auth from './Components/Auth'
 import './App.css'
+import { useAiCoach } from './Hooks/useAiCoach'
+import { AiCoachCard } from './Components/AiCoachCard'
+import { optimiseKeystroke } from './Utility/optimseKeystroke'
 
 function App() {
 
@@ -17,6 +20,7 @@ function App() {
     keyStrokesRef
   } = useTypingEngine()
 
+const coachStateData = useAiCoach();
 
   return (
     <div className="app"
@@ -43,6 +47,7 @@ function App() {
       <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
       {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
     </div>
+    {status ==='completed' && <AiCoachCard coachResponse={coachStateData} optimisedKeystroke={optimiseKeystroke(keyStrokesRef)}/>}
     </div>
   )
 
