@@ -4,7 +4,7 @@ import { fetchAiCoachResponse } from "../Services/AiCoachAPI";
 
 interface AiCoachResponse {
     headline: string
-    strengths: string
+    strengths: string[]
     weaknesses: string[]
     insights: string[]
     focus: string
