@@ -13,6 +13,11 @@ type ControlEvent = {
 
 type KeyStrokeData = TypingEvent | ControlEvent
 
+export type OptimisedKeystroke =
+  | { b: number }
+  | { c: string; t: number }
+  | { c: string; x: string; t: number }
+
 export function optimiseKeystroke(events: KeyStrokeData[]) {
   return events.map(e => {
     if (e.type === "Backspace") return { b: e.time }
