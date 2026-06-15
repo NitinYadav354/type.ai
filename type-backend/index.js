@@ -171,9 +171,7 @@ Output instructions:
         console.log("AI Coaching response:", analysisData)
         console.log(`Model used: ${modelUsed}, Thinking enabled: ${wasThinkingEnabled}, Thinking tokens: ${thinkingTokens}`)
 
-        return res.status(200).json({ 
-            feedback: analysisData
-        });
+        return res.status(200).json(analysisData);
     }
     catch (err) {
         console.error("Error generating coaching feedback:", err)
