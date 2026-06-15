@@ -23,8 +23,10 @@ export const useAiCoach = () => {
         setHasFetched(true);
 
         try {
+            console.log("Triggering AI coach analysis");
             const response: AiCoachResponse = await fetchAiCoachResponse(optimisedKeystoke);
             setAiCoachResponse(response);
+            console.log("AI Coach Response:", response);
         } catch (error) {
             console.error("Error fetching AI coach response:", error);
         } finally {

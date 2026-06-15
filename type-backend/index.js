@@ -105,11 +105,12 @@ const typingAnalysisSchema = {
         }
 
 app.post('/api/coach', async (req, res) => {
+    console.log("Received coaching request")
     try {
         const events = req.body
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
+            model: "gemini-3.5-flash",
             contents: JSON.stringify(events, null, 0),
             config: {
                 thinkingConfig: {
@@ -167,6 +168,8 @@ Output instructions:
         const modelUsed = response.modelVersion;
         const thinkingTokens = metadata.thoughtsTokenCount || 0;
         const wasThinkingEnabled = thinkingTokens > 0;
+        console.log("AI Coaching response:", analysisData)
+        console.log(`Model used: ${modelUsed}, Thinking enabled: ${wasThinkingEnabled}, Thinking tokens: ${thinkingTokens}`)
 
         return res.status(200).json({ 
             feedback: analysisData
