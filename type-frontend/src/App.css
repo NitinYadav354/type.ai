@@ -77,6 +77,56 @@ body {
     animation: blink 1s infinite;
 }
 
+.test-config-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  margin-bottom: -40px;
+  align-items: center;
+}
+
+.test-config-bar select {
+  background-color: #2a2a2a;
+  color: #d1d0c5;
+  border: 1px solid #444;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+  padding-right: 35px;
+}
+
+.test-config-bar select:hover:not(:disabled),
+.test-config-bar select:focus {
+  border-color: #e2b714;
+  background-color: #333;
+}
+
+.test-config-bar select:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-image: none;
+}
+
+.test-config-bar select option {
+  background-color: #1e1e1e;
+  color: #d1d0c5;
+  padding: 10px;
+}
+
 .AiCoachCard {
   max-width: 900px;
   margin: 18px auto;
