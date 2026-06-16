@@ -27,28 +27,36 @@ export const AiCoachCard = ({ coachResponse, optimisedKeystroke }: AiCoachCardPr
         </button>
       )}
       {isLoading && <p>Analyzing...</p>}
-      {hasFetched && (
+      {hasFetched && !isLoading && (
         <div className='AiCoachCard-response'>
-          <div className='AiCoachCard-headline'>{aiCoachResponse?.headline}</div>
+          <h1>AI Analysis Report</h1>
+          <div className='AiCoachCard-headline'>
+            {aiCoachResponse?.headline}
+          </div>
+
+          <div className='AiCoachCard-insights'>
+          <h3>Some insights for you</h3>
+          {aiCoachResponse?.insights.map((insights, index) => (
+              <p key={index}>{insights}</p>
+            ))}
+        </div>
+
           <div className='AiCoachCard-strengths'>
+            <h3>What you're doing well</h3>
             {aiCoachResponse?.strengths.map((strength, index) => (
               <p key={index}>{strength}</p>
             ))}
           </div>
 
           <div className='AiCoachCard-weaknesses'>
+            <h3>here I think you can improve</h3>
             {aiCoachResponse?.weaknesses.map((weakness, index) => (
               <p key={index}>{weakness}</p>
             ))}
         </div>
 
-        <div className='AiCoachCard-insights'>
-          {aiCoachResponse?.insights.map((insights, index) => (
-              <p key={index}>{insights}</p>
-            ))}
-        </div>
-
         <div className='AiCoachCard-focus'>
+          <h3>Focus for your next practice</h3>
           {aiCoachResponse?.focus}
         </div>   
     </div>
