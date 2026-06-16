@@ -18,17 +18,27 @@ interface AiCoachResponse {
 
 
 export const AiCoachCard = ({ coachResponse, optimisedKeystroke }: AiCoachCardProps) => {
-  const { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, resetCoach } = coachResponse
+  const { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, error } = coachResponse
   return (
     <div className='AiCoachCard'>
-      <h3 className='AiCoachCard-title'>TypeAI Coach</h3>
-      {!isLoading && !hasFetched && (
+      {!isLoading && !hasFetched && !error && (
         <button onClick={() => triggerAnalysis(optimisedKeystroke)} className='AiCoachCard-button'>
           Ask Coach
         </button>
       )}
+  
       {isLoading && <p>Analyzing...</p>}
-      {hasFetched && !isLoading && (
+
+      {error && !isLoading && (
+        <div className='AiCoachCard-error'>
+          <p className='AiCoachCard-errormessage'>{error}</p>
+          <button onClick={() => triggerAnalysis(optimisedKeystroke)} className='AiCoachCard-tryAgainbutton'>
+            Try Again
+          </button>          
+        </div>
+        
+      )}
+      {!error && hasFetched && !isLoading && (
         <div className='AiCoachCard-response'>
           <h1>AI Analysis Report</h1>
           <div className='AiCoachCard-headline'>

@@ -14,13 +14,13 @@ export const useAiCoach = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [aiCoachResponse, setAiCoachResponse] = useState<AiCoachResponse | null>(null);
     const [hasFetched, setHasFetched] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const triggerAnalysis = useCallback(async (optimisedKeystoke: OptimisedKeystroke[]) => {
-        if (hasFetched || isLoading) {
-            return;
-        }
+        if (isLoading || (hasFetched && !error)) return;
         setIsLoading(true);
         setHasFetched(true);
+        setError(null);
 
         try {
             console.log("Triggering AI coach analysis");
@@ -29,6 +29,7 @@ export const useAiCoach = () => {
             console.log("AI Coach Response:", response);
         } catch (error) {
             console.error("Error fetching AI coach response:", error);
+            setError("The AI Coach is currently offline or experiencing heavy traffic. Please try again later.");
         } finally {
             setIsLoading(false);
         }
@@ -38,6 +39,7 @@ export const useAiCoach = () => {
         setAiCoachResponse(null);
         setHasFetched(false);
         setIsLoading(false);
+        setError(null);
     }, [])
-    return { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, resetCoach };
+    return { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, resetCoach, error };
 };
