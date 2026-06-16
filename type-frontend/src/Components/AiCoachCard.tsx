@@ -21,9 +21,10 @@ export const AiCoachCard = ({ coachResponse, optimisedKeystroke }: AiCoachCardPr
   const { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, resetCoach } = coachResponse
   return (
     <div className='AiCoachCard'>
+      <h3 className='AiCoachCard-title'>TypeAI Coach</h3>
       {!isLoading && !hasFetched && (
         <button onClick={() => triggerAnalysis(optimisedKeystroke)} className='AiCoachCard-button'>
-          Analyze Keystrokes
+          Ask Coach
         </button>
       )}
       {isLoading && <p>Analyzing...</p>}

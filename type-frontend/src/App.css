@@ -82,22 +82,63 @@ body {
   margin: 18px auto;
   padding: 10px;
 }
+.AiCoachCard-title
+{ margin: 0;
+  font-size: 2rem;
+  color: #818CF8;
+  justify-self: center;
+ }
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 15px #00ffcc;
+    }
+    50% {
+        box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+    }
+    100% {
+        box-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 15px #00ffcc;
+    }
+}
 
 .AiCoachCard-button {
-  background: linear-gradient(90deg,#6b72f6,#8b93ff);
-  color: #ffffff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  justify-content: center;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.12);
-  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
-  display: inline-block;
+        background: linear-gradient(90deg, #4f46e5, #06b6d4);
+        color: white;
+        padding: 14px 28px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+    }
+
+.AiCoachCard-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
 }
-.AiCoachCard-button:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(99,102,241,0.16); }
-.AiCoachCard-button:active { transform: translateY(0); }
+
+.AiCoachCard-button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.AiCoachCard-button:active::after {
+    width: 300px;
+    height: 300px;
+    transition: 0s;
+}
 
 .AiCoachCard-response {
   display: grid;
@@ -114,12 +155,12 @@ body {
 .AiCoachCard-response h1 {
   margin: 0 0 12px 0;
   font-size: 2rem;
-  color: #f0f2ff;
+  color: #4e5eeb;
   justify-self: center;
 }
 
 .AiCoachCard-headline {
-  background: linear-gradient(90deg,#604747,#b66565);
+  background: linear-gradient(90deg,#6047478c,#b665657a);
   padding: 14px;
   border-radius: 8px;
   color: #fff;
