@@ -6,6 +6,7 @@ import Auth from './Components/Auth'
 import './App.css'
 import { useAiCoach } from './Hooks/useAiCoach'
 import { AiCoachCard } from './Components/AiCoachCard'
+import {TestConfigBar } from './Components/TestConfigBar'
 import { optimiseKeystroke } from './Utility/optimseKeystroke'
 
 function App() {
@@ -17,7 +18,15 @@ function App() {
     TimeTaken,
     wpm,
     accuracy,
-    keyStrokesRef
+    keyStrokesRef,
+    category,
+    setCategory,
+    subCategory,
+    setSubCategory,
+    length,
+    setLength,
+    uniqueCategories,
+    availableSubCategories
   } = useTypingEngine()
 
 const coachStateData = useAiCoach();
@@ -43,6 +52,7 @@ const coachStateData = useAiCoach();
         <h1 style={{ color: "#818CF8", margin: 0 }}>Type.AI</h1>
       <Auth />
       </div>
+      <TestConfigBar category={category} setCategory={setCategory} subCategory={subCategory} setSubCategory={setSubCategory} length={length} setLength={setLength} uniqueCategories={uniqueCategories} availableSubCategories={availableSubCategories}/>
       <TextDisplay inputText={inputText} targetText={targetText} />
       <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
       {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
