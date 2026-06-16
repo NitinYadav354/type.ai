@@ -82,12 +82,45 @@ body {
   margin: 18px auto;
   padding: 10px;
 }
-.AiCoachCard-title
-{ margin: 0;
-  font-size: 2rem;
-  color: #818CF8;
-  justify-self: center;
- }
+
+.AiCoachCard-error {
+  padding: 15px;
+  background-color: #3a1c1e;
+  border-radius: 4px;
+  border: 1px solid #ca4754;
+  display: flex;
+  flex-direction: column;
+} 
+
+.AiCoachCard-errormessage {
+  margin: 5px 0 15px 0;
+  font-size: 0.9rem;
+  color: #d1d0c5;
+}
+
+.AiCoachCard-tryAgainbutton {
+  background-color: transparent; 
+  color: #ff8a8a;
+  border: 1px solid #ff8a8a; 
+  padding: 6px 12px; 
+  border-radius: 4px; 
+  cursor: pointer;
+  font-size: 0.85rem;
+
+  align-self: center;;
+  width: fit-content; 
+  transition: all 0.2s ease;
+}
+
+.AiCoachCard-tryAgainbutton:hover {
+  background-color: rgba(255, 138, 138, 0.1);
+}
+
+.AiCoachCard-tryAgainbutton:focus-visible {
+  outline: 2px solid #ff8a8a;
+  outline-offset: 2px;
+}
+
 @keyframes pulse {
     0% {
         box-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 15px #00ffcc;
