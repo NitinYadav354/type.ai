@@ -19,7 +19,7 @@ export const TestConfigBar = ({
 }: TestConfigBarProps) => {
 
   return (
-    <div className="test-config-bar" style={{ display: 'flex', gap: '15px', marginBottom: '20px' }}>
+    <div className="test-config-bar">
       
       <label>
         Type
