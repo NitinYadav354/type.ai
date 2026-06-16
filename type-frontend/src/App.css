@@ -77,3 +77,125 @@ body {
     animation: blink 1s infinite;
 }
 
+.AiCoachCard {
+  max-width: 900px;
+  margin: 18px auto;
+  padding: 10px;
+}
+
+.AiCoachCard-button {
+  background: linear-gradient(90deg,#6b72f6,#8b93ff);
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  justify-content: center;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.12);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+  display: inline-block;
+}
+.AiCoachCard-button:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(99,102,241,0.16); }
+.AiCoachCard-button:active { transform: translateY(0); }
+
+.AiCoachCard-response {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  background-color: #3A3B3F;
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: #e6e4dd;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.AiCoachCard-response h1 {
+  margin: 0 0 12px 0;
+  font-size: 2rem;
+  color: #f0f2ff;
+  justify-self: center;
+}
+
+.AiCoachCard-headline {
+  background: linear-gradient(90deg,#604747,#b66565);
+  padding: 14px;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 4px solid #f88181;
+  font-size: 0.99rem;
+  line-height: 1.4; 
+}
+
+
+.AiCoachCard-strengths,
+.AiCoachCard-weaknesses,
+.AiCoachCard-insights,
+.AiCoachCard-focus {
+  background: rgba(255,255,255,0.02);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid transparent;
+}
+.AiCoachCard-strengths h3,
+.AiCoachCard-weaknesses h3,
+.AiCoachCard-insights h3,
+.AiCoachCard-focus h3 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  color: #e9e8e4;
+}
+
+.AiCoachCard-strengths { border-left-color: #34D39933; }
+.AiCoachCard-strengths p {
+  background: rgba(52,211,153,0.06);
+  color: #d7ffef;
+  padding: 8px 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.92rem;
+}
+.AiCoachCard-strengths p::before { content: '✔'; color: #34D399; font-weight: 700; }
+
+.AiCoachCard-weaknesses { border-left-color: #FB718533; }
+.AiCoachCard-weaknesses p {
+  background: rgba(251,113,133,0.04);
+  color: #ffdede;
+  padding: 8px 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.92rem;
+}
+.AiCoachCard-weaknesses p::before { content: '⚠'; color: #fb7185; font-weight: 700; }
+
+.AiCoachCard-insights { border-left-color: #FBBF2433; }
+.AiCoachCard-insights p {
+  background: rgba(251,191,36,0.04);
+  color: #fff7e6;
+  padding: 8px 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.92rem;
+}
+.AiCoachCard-insights p::before { content: '💡'; }
+
+.AiCoachCard-focus {
+  border-left-color: #818CF8;
+  padding: 14px;
+  background: linear-gradient(90deg, rgba(129,140,248,0.06), rgba(255,255,255,0.01));
+  color: #f0f2ff;
+  font-weight: 600;
+}
