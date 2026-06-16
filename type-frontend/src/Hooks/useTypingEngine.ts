@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState} from 'react'
+import { useEffect, useRef, useState, useMemo, useCallback} from 'react'
 import { sendTelemetry } from '../Services/TelemeryAPI'
 import { calculateMetrics } from '../Utility/calculateMetrics'
 import clickSound from '../Assets/typeSound.mp3'
@@ -11,6 +11,9 @@ const playsound = () => {
         console.error("Error playing sound:", error)
     })
 }
+
+const uniqueCategories = Array.from(new Set(textSamples.map(sample => sample.type)))
+console.log("Unique Categories:", uniqueCategories)
 
 
 interface typingEvent {
@@ -29,10 +32,11 @@ interface controlEvent {
 type keyStrokeData = typingEvent | controlEvent
 
 export default function useTypingEngine() {
-    const [targetText] = useState(() => {
-        const randomIndex = Math.floor(Math.random() * textSamples.length)
-        return textSamples[6].text
-    })
+
+    const [category, setCategory] = useState<string>('natural_language')
+    const [subCategory, setSubCategory] = useState<string>('all')
+    const [length, setLength] = useState<string>('medium')
+    const [targetText, setTargetText] = useState("")
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
     const [TimeTaken, setTimeTaken] = useState(0)
@@ -41,6 +45,41 @@ export default function useTypingEngine() {
     const keyStrokesRef = useRef<keyStrokeData[]>([])
     const inputTextRef = useRef('')
     const previousTimeRef = useRef<number | null>(null)
+
+    const availableSubCategories = useMemo(() => {
+        return category === 'all'
+        ? []
+        : Array.from(new Set(textSamples.filter(sample => sample.type === category)
+        .map(sample => sample.subtype)))
+    }, [category])
+
+    console.log("Available Subcategories:", availableSubCategories)
+
+    const generateNewText = useCallback(() => {
+  let validTexts = textSamples;
+
+  if (category !== 'all') {
+    validTexts = validTexts.filter(item => item.type === category);
+  }
+  if (subCategory !== 'all') {
+    validTexts = validTexts.filter(item => item.subtype === subCategory);
+  }
+  if (length !== 'all') {
+    validTexts = validTexts.filter(item => item.length === length);
+  }
+
+  if (validTexts.length === 0) {
+    validTexts = textSamples;
+  }
+
+  const randomIndex = Math.floor(Math.random() * validTexts.length);
+  setTargetText(validTexts[randomIndex].text);
+
+}, [category, subCategory, length]);
+
+    useEffect(() => {
+        generateNewText();
+        }, [generateNewText]);
 
     const FinishTest = async () => {
         const metrics = calculateMetrics(keyStrokesRef.current, inputText)
@@ -176,7 +215,15 @@ export default function useTypingEngine() {
         TimeTaken,
         wpm,
         accuracy,
-        keyStrokesRef: keyStrokesRef.current
+        keyStrokesRef: keyStrokesRef.current,
+        category,
+        setCategory,
+        subCategory,
+        setSubCategory,
+        length,
+        setLength,
+        uniqueCategories: Array.from(uniqueCategories),
+        availableSubCategories
     }
 }
 
