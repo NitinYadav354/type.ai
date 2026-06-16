@@ -18,6 +18,10 @@ export const TestConfigBar = ({
   uniqueCategories, availableSubCategories
 }: TestConfigBarProps) => {
 
+  const formatLabel = (s: string) => {
+    if (!s) return s
+    return s.replace(/_/g, ' ').toLowerCase().replace(/^./, c => c.toUpperCase())
+  }
   return (
     <div className="test-config-bar">
       
@@ -31,8 +35,8 @@ export const TestConfigBar = ({
           }}
         >
           <option value="all">All Types</option>
-          {uniqueCategories.map(category => (
-            <option key={category} value={category}>{category.replace('_', ' ')}</option>
+          {uniqueCategories.map(cat => (
+            <option key={cat} value={cat}>{formatLabel(cat)}</option>
           ))}
         </select>
       </label>
@@ -45,8 +49,8 @@ export const TestConfigBar = ({
           disabled={category  === 'all'}
         >
           <option value="all">All Subtypes</option>
-          {availableSubCategories.map(subCategory => (
-            <option key={subCategory} value={subCategory}>{subCategory.replace('_', ' ')}</option>
+          {availableSubCategories.map(sub => (
+            <option key={sub} value={sub}>{formatLabel(sub)}</option>
           ))}
         </select>
       </label>
