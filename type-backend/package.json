@@ -8,9 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Nitin Yadav",
+  "license": "MIT",
+  "description": "Backend API for Type.ai",
   "dependencies": {
     "@google/genai": "^2.8.0",
     "cors": "^2.8.6",

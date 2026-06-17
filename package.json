@@ -1,20 +1,33 @@
 {
   "name": "type.ai",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "npm run dev --prefix type-frontend",
+    "backend": "npm run dev --prefix type-backend",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NitinYadav354/type.ai.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "typing",
+    "ai",
+    "typescript",
+    "react",
+    "vite"
+  ],
+  "author": "Nitin Yadav",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/NitinYadav354/type.ai/issues"
   },
   "homepage": "https://github.com/NitinYadav354/type.ai#readme",
-  "description": ""
+  "description": "AI-powered typing practice application",
+  "private": "true",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
 }
