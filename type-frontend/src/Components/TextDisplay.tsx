@@ -1,17 +1,15 @@
 type TextDisplayProps = {
     inputText: string
     targetText: string
+    isBlindMode: boolean
 }
 
-const TextDisplay = ({ inputText, targetText }: TextDisplayProps) => {
+const TextDisplay = ({ inputText, targetText, isBlindMode }: TextDisplayProps) => {
     return (
-        <div style={{
-            marginTop: '40px',
-            padding: '20px',
-            backgroundColor: '#2c2e31',
-            borderRadius: '8px',
-            border: '1px solid #363636',
-            width: '100%'
+        <div className="typing-area" style={{
+            filter: isBlindMode ? 'blur(8px)' : 'none',
+            opacity: isBlindMode ? 0.5 : 1,
+            transition: 'all 0.3s ease'
         }}>
         <div style={{ fontSize: "1.5rem", lineHeight: "1.6", letterSpacing: "1px", whiteSpace: "pre-wrap" }}>
         <p>
