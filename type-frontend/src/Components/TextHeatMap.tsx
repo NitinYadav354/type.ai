@@ -57,6 +57,8 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
 
             </div>
             <div className="heatmap-legend">
+            </div>
+            <div className="heatmap-legend-labels">
                 <p className="slow">slow</p>
                 <p className="fast">fast</p>
             </div>
