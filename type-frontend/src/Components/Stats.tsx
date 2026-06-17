@@ -18,19 +18,19 @@ const Stats = ({ status, TimeTaken, wpm, accuracy}: StatsProps) => {
   }}>
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>time</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>Time</span>
       <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{TimeTaken}s</span>
     </div>
 
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>wpm</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>WPM</span>
       <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{wpm}</span>
     </div>
 
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>acc</span>
+      <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>Accuracy</span>
       <span style={{ fontSize: '1.8rem', color: '#818CF8', fontWeight: 'bold' }}>{Math.round(accuracy)}%</span>
     
     </div>
