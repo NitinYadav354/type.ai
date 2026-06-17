@@ -323,3 +323,15 @@ body {
   color: #f0f2ff;
   font-weight: 600;
 }
+
+.heatmap-legend {
+    display: flex;
+    height: 18px;
+    background: linear-gradient(90deg,#9c9c9c, #005900);
+    padding: 1px 12px;
+    border-radius: 20px;
+    justify-content: space-between;
+    margin-top: 18px;
+    align-items: center;
+    font-size: 0.8rem;
+}
