@@ -55,7 +55,6 @@ export default function Auth() {
         <GoogleLogin
           onSuccess={handleLoginSuccess}
           onError={() => console.log('Login Failed')}
-          useOneTap
         />
       )}
     </div>
