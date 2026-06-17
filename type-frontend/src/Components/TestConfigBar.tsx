@@ -32,6 +32,7 @@ export const TestConfigBar = ({
           onChange={(e) => {
             setCategory(e.target.value);
             setSubCategory('all');
+            e.target.blur();
           }}
         >
           <option value="all">All Types</option>
@@ -45,7 +46,10 @@ export const TestConfigBar = ({
         Subtype
         <select 
           value={subCategory} 
-          onChange={(e) => setSubCategory(e.target.value)}
+          onChange={(e) => {
+            setSubCategory(e.target.value);
+            e.target.blur();
+          }}
           disabled={category  === 'all'}
         >
           <option value="all">All Subtypes</option>
@@ -57,7 +61,10 @@ export const TestConfigBar = ({
 
       <label>
         Length
-        <select value={length} onChange={(e) => setLength(e.target.value)}>
+        <select value={length} onChange={(e) => {
+          setLength(e.target.value);
+          e.target.blur();
+        }}>
           <option value="short">Short</option>
           <option value="medium">Medium</option>
           <option value="long">Long</option>
