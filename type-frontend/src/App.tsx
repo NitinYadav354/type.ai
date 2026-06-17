@@ -11,6 +11,7 @@ import { optimiseKeystroke } from './Utility/optimseKeystroke'
 import { SoundConfig } from './Components/SoundConfig'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { Footer } from './Components/Footer'
 
 function App() {
 
@@ -71,6 +72,7 @@ const coachStateData = useAiCoach();
       {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
     </div>
     {status ==='completed' && <AiCoachCard coachResponse={coachStateData} optimisedKeystroke={optimiseKeystroke(keyStrokesRef)}/>}
+    <Footer />
     </div>
   )
 
