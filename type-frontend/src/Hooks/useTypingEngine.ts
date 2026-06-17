@@ -27,7 +27,7 @@ export default function useTypingEngine() {
 
     const [category, setCategory] = useState<string>('natural_language')
     const [subCategory, setSubCategory] = useState<string>('all')
-    const [length, setLength] = useState<string>('medium')
+    const [length, setLength] = useState<string>('short')
     const [targetText, setTargetText] = useState("")
     const [inputText, setInputText] = useState('')
     const [status, setStatus] = useState('idle')
