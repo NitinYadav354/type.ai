@@ -9,14 +9,6 @@ interface AiCoachCardProps {
   optimisedKeystroke: ReturnType<typeof optimiseKeystroke>
 }
 
-interface AiCoachResponse {
-    headline: string
-    strengths: string[]
-    weaknesses: string[]
-    insights: string[]
-    focus: string
-    practicePrompt: string
-}
 
 const loadingPhrases = [
   "Reviewing your keystrokes...",

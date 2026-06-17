@@ -37,7 +37,7 @@ const coachStateData = useAiCoach();
 
   useEffect(() => {
       axios.get(`${import.meta.env.VITE_API_URL}/ping`)
-      .catch((err) => {});
+      .catch(() => {});
     }, []);
 
   return (

@@ -153,11 +153,11 @@ export default function useTypingEngine() {
                 });
             } else if (soundMode === 'click1') {
                 sound1Ref.current.currentTime = 0;
-                sound1Ref.current.play().catch((error) => {});
+                sound1Ref.current.play().catch(() => {});
 
             } else if (soundMode === 'click2') {
                 sound2Ref.current.currentTime = 0;
-                sound2Ref.current.play().catch((error) => {});
+                sound2Ref.current.play().catch(() => {});
             }
         }
 
