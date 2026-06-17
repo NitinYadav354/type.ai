@@ -173,26 +173,26 @@ body {
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 15px #00ffcc;
+        box-shadow: 0 0 5px #43ff64d9, 0 0 10px #818cf81f, 0 0 15px #818cf81f;
     }
     50% {
-        box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+        box-shadow: 0 0 10px #818cf873, 0 0 20px #818cf82e, 0 0 15px #BEC4F9;
     }
     100% {
-        box-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 15px #00ffcc;
+        box-shadow: 0 0 5px #43ff64d9, 0 0 10px #818cf81f, 0 0 15px #818cf81f;
     }
 }
 
 .AiCoachCard-button {
-        background: linear-gradient(90deg, #4f46e5, #06b6d4);
-        color: white;
+        background: linear-gradient(90deg, #818CF8, #4f46e5);
+        color: #f5f3ff;
         padding: 14px 28px;
         font-size: 1.1rem;
         font-weight: bold;
-        border: none;
+        border: 1px solid rgba(129, 140, 248, 0.35);;
         border-radius: 50px;
         cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 14px rgba(129, 140, 248, 0.18);
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -201,7 +201,7 @@ body {
 
 .AiCoachCard-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+    box-shadow: 0 6px 20px rgba(129, 140, 248, 0.28);
 }
 
 .AiCoachCard-button::after {
