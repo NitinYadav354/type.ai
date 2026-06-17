@@ -110,14 +110,16 @@ app.post('/api/coach', async (req, res) => {
         const events = req.body
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.5-flash",
+            model: "gemini-2.5-flash",
             contents: JSON.stringify(events, null, 0),
             config: {
                 thinkingConfig: {
                     includeThoughts: true,
-                    thinkingBudget: -1
+                    thinkingBudget: 1024
                 },
-                temperature: 0.1,
+                  temperature: 0.1,
+                  topP: 0.9,
+                  topK: 20,
                 systemInstruction: `You are an expert in motor learning, typing performance, and behavioral pattern analysis.
 You are analyzing a typing test session.
 
