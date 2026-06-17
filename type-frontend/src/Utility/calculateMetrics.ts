@@ -6,7 +6,7 @@ export function calculateMetrics(keyStrokes: any[], inputText: string) {
     // Calculate WPM
     const wordsTyped = inputText.length / 5
     const wpm = TimeTaken > 0 ? Math.round(wordsTyped / (TimeTaken / 60) * 100) / 100 : 0
-    console.log('WPM:', wpm)    
+   
     
     // Calculate Accuracy
     let error = 0
