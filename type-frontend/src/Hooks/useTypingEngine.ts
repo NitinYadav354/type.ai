@@ -1,20 +1,12 @@
 import { useEffect, useRef, useState, useMemo, useCallback} from 'react'
 import { sendTelemetry } from '../Services/TelemeryAPI'
 import { calculateMetrics } from '../Utility/calculateMetrics'
-import clickSound from '../Assets/typeSound.mp3'
 import textSamples from '../Assets/InputText.json'
-import {optimiseKeystroke} from '../Utility/optimseKeystroke'
-
-const playsound = () => {
-    const audio = new Audio(clickSound)
-    audio.play().catch((error) => {
-        console.error("Error playing sound:", error)
-    })
-}
+import click1 from '../Assets/sounds/click1.mp3'
+import click2 from '../Assets/sounds/click2.mp3'
+import error from '../Assets/sounds/error.mp3'
 
 const uniqueCategories = Array.from(new Set(textSamples.map(sample => sample.type)))
-
-
 
 interface typingEvent {
     type : 'character',
@@ -45,6 +37,14 @@ export default function useTypingEngine() {
     const keyStrokesRef = useRef<keyStrokeData[]>([])
     const inputTextRef = useRef('')
     const previousTimeRef = useRef<number | null>(null)
+
+    const [soundMode, setSoundMode] = useState<'mute' | 'click1' | 'click2'>('click1');
+    const [enableErrorSound, setEnableErrorSound] = useState<boolean>(true);
+    const [isBlindMode, setIsBlindMode] = useState<boolean>(false);
+
+    const sound1Ref = useRef(new Audio(click1));
+    const sound2Ref = useRef(new Audio(click2));
+    const errorSoundRef = useRef(new Audio(error));
 
     const availableSubCategories = useMemo(() => {
         return category === 'all'
@@ -138,12 +138,31 @@ export default function useTypingEngine() {
                 setStatus('typing')
 
             }
-        playsound()
         
         const expectedChar = targetText[inputTextRef.current.length]
         const now = Date.now()
         const time = previousTimeRef.current === null ? 0 : now - previousTimeRef.current
         const isCorrect = event.key === expectedChar
+
+        if (soundMode !== 'mute') {
+            if (!isCorrect && enableErrorSound) {
+                errorSoundRef.current.currentTime = 10;
+                errorSoundRef.current.play().catch((error) => {
+                console.error("Error playing error sound:", error);
+                });
+            } else if (soundMode === 'click1') {
+                sound1Ref.current.currentTime = 0;
+                sound1Ref.current.play().catch((error) => {
+                    console.error("Error playing click1 sound:", error);
+                });
+                console.log('click1 sound played');
+            } else if (soundMode === 'click2') {
+                sound2Ref.current.currentTime = 0;
+                sound2Ref.current.play().catch((error) => {
+                    console.error("Error playing click2 sound:", error);
+                });
+            }
+        }
 
         setInputText((prev) => {
             const next = prev + event.key
