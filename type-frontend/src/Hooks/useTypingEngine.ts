@@ -56,21 +56,21 @@ export default function useTypingEngine() {
     console.log("Available Subcategories:", availableSubCategories)
 
     const generateNewText = useCallback(() => {
-  let validTexts = textSamples;
+    let validTexts = textSamples;
 
-  if (category !== 'all') {
-    validTexts = validTexts.filter(item => item.type === category);
-  }
-  if (subCategory !== 'all') {
-    validTexts = validTexts.filter(item => item.subtype === subCategory);
-  }
-  if (length !== 'all') {
-    validTexts = validTexts.filter(item => item.length === length);
-  }
+    if (category !== 'all') {
+        validTexts = validTexts.filter(item => item.type === category);
+    }
+    if (subCategory !== 'all') {
+        validTexts = validTexts.filter(item => item.subtype === subCategory);
+    }
+    if (length !== 'all') {
+        validTexts = validTexts.filter(item => item.length === length);
+    }
 
-  if (validTexts.length === 0) {
-    validTexts = textSamples;
-  }
+    if (validTexts.length === 0) {
+        validTexts = textSamples;
+    }
 
   const randomIndex = Math.floor(Math.random() * validTexts.length);
   setTargetText(validTexts[randomIndex].text);
@@ -78,8 +78,17 @@ export default function useTypingEngine() {
 }, [category, subCategory, length]);
 
     useEffect(() => {
-        generateNewText();
-        }, [generateNewText]);
+  generateNewText();
+  setInputText('');
+  setStatus('idle');
+    keyStrokesRef.current = [];
+    setTimeTaken(0);
+    setWpm(0);
+    setAccuracy(100);
+    previousTimeRef.current = null;
+    inputTextRef.current = '';
+    
+}, [generateNewText]);
 
     const FinishTest = async () => {
         const metrics = calculateMetrics(keyStrokesRef.current, inputText)
