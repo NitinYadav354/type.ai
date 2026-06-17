@@ -55,9 +55,6 @@ export function calculateMetrics(keyStrokes: any[], inputText: string) {
         }
     }
     const hesitationTimesec = Math.round(hesitationTime / 10)/100 
-    console.log('Hesitation Time Threshold (ms):', hesitationTimeThreshold)
-    console.log('Hesitation Time (s):', hesitationTimesec)
-    console.log('Hesitation Map:', hesitationMap)
 
     return {
     TimeTaken,
