@@ -50,7 +50,7 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
                 //sum of ratios
                 sum += ratio;
                 
-                const sat = (1- ratio) * 50;
+                const sat = (1- ratio) * 50;                
                 sumSat += sat;
                 // console.log("RATIO: ", ratio, "sat:", sat, "char", item.char, "time:", item.time)
                 // console.log("SUM:", sum, "SUMSAT:", sumSat)
@@ -63,8 +63,13 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
                     </span>
                 );
             })}
-            
+
             </div>
+            <div className="heatmap-legend">
+                <p className="slow">slow</p>
+                <p className="fast">fast</p>
+            </div>
+
         </div>
     )
 }
