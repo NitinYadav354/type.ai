@@ -13,8 +13,15 @@ export function calculateMetrics(keyStrokes: any[], inputText: string) {
     const missedKeysMap: Record<string, number> = {}
     for (const event of keyStrokes) {
         if (event.type === 'character' && !event.isCorrect) {
+            let expected = event.expectedChar;
+                if (expected === '.') {
+                    expected = 'period';
+                }
+                else if (expected === '$') {
+                    expected = 'dollar';
+                }
             error++
-            missedKeysMap[event.expectedChar] = (missedKeysMap[event.expectedChar] || 0) + 1
+            missedKeysMap[expected] = (missedKeysMap[expected] || 0) + 1
         }         
     }
     const accuracy = Math.max(((inputText.length - error) / inputText.length) * 100, 0)
@@ -36,7 +43,13 @@ export function calculateMetrics(keyStrokes: any[], inputText: string) {
             hesitationTime += timeDiff - hesitationTimeThreshold
 
             if (currentEvent.type === 'character') {
-                const expected = currentEvent.expectedChar;
+                let expected = currentEvent.expectedChar;
+                if (expected === '.') {
+                    expected = 'period';
+                }
+                else if (expected === '$') {
+                    expected = 'dollar';
+                }
                 hesitationMap[expected] = (hesitationMap[expected] || 0) + 1;
             }
         }
