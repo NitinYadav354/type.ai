@@ -110,6 +110,17 @@ export default function useTypingEngine() {
     };
     useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+        const activeTag = document.activeElement?.tagName;
+        console.log('Key Pressed:', event.key, 'Active Element:', activeTag)
+        if (activeTag === 'INPUT' || activeTag === 'SELECT' || activeTag === 'BUTTON'){
+            if (event.key.length === 1 || event.key === ' ' || event.key === 'Backspace') {
+                (document.activeElement as HTMLElement).blur();
+                event.preventDefault();
+            }
+            else{
+                return;
+            }
+        }
         if (status === 'completed') return
 
         if (event.key === ' '){
