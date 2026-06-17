@@ -341,3 +341,82 @@ body {
     margin-bottom: -24px;
     margin-top: -12px;
 }
+
+.config-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-toggle-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #444;
+  border-radius: 8px;
+
+  background: #2a2a2a;
+  color: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease,
+    opacity 0.15s ease;
+}
+
+.config-toggle-btn:hover:not(:disabled) {
+  background: #333;
+  border-color: #666;
+}
+
+.config-toggle-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.config-toggle-btn:focus {
+  outline: none;
+}
+
+.config-toggle-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.config-toggle-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.typing-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.typing-area {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #2c2e31;
+  border-radius: 8px;
+  border: 1px solid #363636;
+}
+
+.sound-config-buttons {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 40px
+}

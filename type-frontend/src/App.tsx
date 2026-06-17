@@ -8,6 +8,9 @@ import { useAiCoach } from './Hooks/useAiCoach'
 import { AiCoachCard } from './Components/AiCoachCard'
 import {TestConfigBar } from './Components/TestConfigBar'
 import { optimiseKeystroke } from './Utility/optimseKeystroke'
+import { SoundConfig } from './Components/SoundConfig'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 function App() {
 
@@ -19,17 +22,22 @@ function App() {
     wpm,
     accuracy,
     keyStrokesRef,
-    category,
-    setCategory,
-    subCategory,
-    setSubCategory,
-    length,
-    setLength,
+    category, setCategory,
+    subCategory, setSubCategory,
+    length, setLength,
     uniqueCategories,
-    availableSubCategories
+    availableSubCategories,
+    soundMode, setSoundMode,
+    enableErrorSound, setEnableErrorSound,
+    isBlindMode, setIsBlindMode
   } = useTypingEngine()
 
 const coachStateData = useAiCoach();
+
+  useEffect(() => {
+      axios.get(`${import.meta.env.VITE_API_URL}/ping`)
+      .catch((err) => {});
+    }, []);
 
   return (
     <div className="app"
@@ -52,8 +60,13 @@ const coachStateData = useAiCoach();
         <h1 style={{ color: "#818CF8", margin: 0 }}>Type.AI</h1>
       <Auth />
       </div>
-      <TestConfigBar category={category} setCategory={setCategory} subCategory={subCategory} setSubCategory={setSubCategory} length={length} setLength={setLength} uniqueCategories={uniqueCategories} availableSubCategories={availableSubCategories}/>
-      <TextDisplay inputText={inputText} targetText={targetText} />
+      <TestConfigBar category={category} setCategory={setCategory} subCategory={subCategory} setSubCategory={setSubCategory} length={length} setLength={setLength} uniqueCategories={uniqueCategories} availableSubCategories={availableSubCategories} />
+
+      <div className="typing-layout">
+      
+      <TextDisplay inputText={inputText} targetText={targetText} isBlindMode={isBlindMode} />
+      <SoundConfig isBlindMode={isBlindMode} setIsBlindMode={setIsBlindMode} soundMode={soundMode} setSoundMode={setSoundMode} enableErrorSound={enableErrorSound} setEnableErrorSound={setEnableErrorSound} />
+      </div>
       <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
       {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
     </div>

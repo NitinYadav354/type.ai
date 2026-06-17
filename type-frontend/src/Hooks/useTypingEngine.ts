@@ -38,8 +38,8 @@ export default function useTypingEngine() {
     const inputTextRef = useRef('')
     const previousTimeRef = useRef<number | null>(null)
 
-    const [soundMode, setSoundMode] = useState<'mute' | 'click1' | 'click2'>('click1');
-    const [enableErrorSound, setEnableErrorSound] = useState<boolean>(true);
+    const [soundMode, setSoundMode] = useState<'mute' | 'click1' | 'click2'>('mute');
+    const [enableErrorSound, setEnableErrorSound] = useState<boolean>(false);
     const [isBlindMode, setIsBlindMode] = useState<boolean>(false);
 
     const sound1Ref = useRef(new Audio(click1));
@@ -146,21 +146,18 @@ export default function useTypingEngine() {
 
         if (soundMode !== 'mute') {
             if (!isCorrect && enableErrorSound) {
-                errorSoundRef.current.currentTime = 10;
+                errorSoundRef.current.pause();
+                errorSoundRef.current.currentTime = 0;
                 errorSoundRef.current.play().catch((error) => {
                 console.error("Error playing error sound:", error);
                 });
             } else if (soundMode === 'click1') {
                 sound1Ref.current.currentTime = 0;
-                sound1Ref.current.play().catch((error) => {
-                    console.error("Error playing click1 sound:", error);
-                });
-                console.log('click1 sound played');
+                sound1Ref.current.play().catch((error) => {});
+
             } else if (soundMode === 'click2') {
                 sound2Ref.current.currentTime = 0;
-                sound2Ref.current.play().catch((error) => {
-                    console.error("Error playing click2 sound:", error);
-                });
+                sound2Ref.current.play().catch((error) => {});
             }
         }
 
@@ -228,7 +225,7 @@ export default function useTypingEngine() {
     return () => {
         window.removeEventListener('keydown', handleKeyDown);
     };
-    }, [status, targetText]);
+    }, [status, targetText, soundMode, enableErrorSound]);
 
     useEffect(() => {
     if (inputText === targetText && inputText.length > 0) {
@@ -252,7 +249,13 @@ export default function useTypingEngine() {
         length,
         setLength,
         uniqueCategories: Array.from(uniqueCategories),
-        availableSubCategories
+        availableSubCategories,
+        soundMode,
+        setSoundMode,
+        enableErrorSound,
+        setEnableErrorSound,
+        isBlindMode,
+        setIsBlindMode
     }
 }
 
