@@ -16,13 +16,13 @@ export default function Auth() {
                 token: credential,
                 guestID: guestID
             })
-            console.log('Login successful:', response.data)
+
 
             localStorage.setItem('AuthToken', response.data.token)
       localStorage.setItem('userData', JSON.stringify(response.data.user))
       globalThis.location.reload()
         } catch (error) {
-            console.error('Login failed:', error)
+            console.error('Login failed')
         }   
     }
 

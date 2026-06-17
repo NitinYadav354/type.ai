@@ -13,7 +13,7 @@ const playsound = () => {
 }
 
 const uniqueCategories = Array.from(new Set(textSamples.map(sample => sample.type)))
-console.log("Unique Categories:", uniqueCategories)
+
 
 
 interface typingEvent {
@@ -52,8 +52,6 @@ export default function useTypingEngine() {
         : Array.from(new Set(textSamples.filter(sample => sample.type === category)
         .map(sample => sample.subtype)))
     }, [category])
-
-    console.log("Available Subcategories:", availableSubCategories)
 
     const generateNewText = useCallback(() => {
     let validTexts = textSamples;
@@ -98,20 +96,12 @@ export default function useTypingEngine() {
         setWpm(Math.round(wpm))
         setAccuracy(Math.round(accuracy))
 
-        const buildTelemetryPayload = sendTelemetry(metrics)
-        console.log("keystrokes:", keyStrokesRef.current)
-        console.log("Telemetry Payload:", buildTelemetryPayload)
-        try {
-            const optimisedKeystrokes = optimiseKeystroke(keyStrokesRef.current)
-            console.log("Optimized Keystrokes:", optimisedKeystrokes)
-        } catch (err) {
-            console.error('Failed to summarize keystrokes', err)
-        }
+        sendTelemetry(metrics)
     };
+
     useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
         const activeTag = document.activeElement?.tagName;
-        console.log('Key Pressed:', event.key, 'Active Element:', activeTag)
         if (activeTag === 'INPUT' || activeTag === 'SELECT' || activeTag === 'BUTTON'){
             if (event.key.length === 1 || event.key === ' ' || event.key === 'Backspace') {
                 (document.activeElement as HTMLElement).blur();

@@ -23,12 +23,9 @@ export const useAiCoach = () => {
         setError(null);
 
         try {
-            console.log("Triggering AI coach analysis");
             const response: AiCoachResponse = await fetchAiCoachResponse(optimisedKeystoke);
             setAiCoachResponse(response);
-            console.log("AI Coach Response:", response);
         } catch (error) {
-            console.error("Error fetching AI coach response:", error);
             setError("The AI Coach is currently offline or experiencing heavy traffic. Please try again later.");
         } finally {
             setIsLoading(false);

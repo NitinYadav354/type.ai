@@ -16,12 +16,9 @@ type ControlEvent = {
 type KeyStrokeData = TypingEvent | ControlEvent
 
 const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: string}) => {
-    let sum = 0;
-    let sumSat = 0;
     if (!keyStrokes || keyStrokes.length < 2 || !text) return null;
 
     const heatMapData = buildHeatMapData(keyStrokes, text)
-    console.log('Character Time Data:', heatMapData)
     
     const threshold = text.length > 0
         ? (keyStrokes.reduce((sum, event) => sum + (event.time ?? 0), 0) / text.length)
@@ -46,15 +43,9 @@ const TextHeatMap = ({keyStrokes, text} : {keyStrokes: KeyStrokeData[], text: st
 
             <p className="title" style={{ textAlign: 'left', marginBottom: '1rem', fontSize: '1.25rem' }}>Speed Variance Heatmap</p>
             {heatMapData.map((item, index) => {
-                const ratio = ((item.time - threshold) / threshold);
-                //sum of ratios
-                sum += ratio;
-                
-                const sat = (1- ratio) * 50;                
-                sumSat += sat;
-                // console.log("RATIO: ", ratio, "sat:", sat, "char", item.char, "time:", item.time)
-                // console.log("SUM:", sum, "SUMSAT:", sumSat)
-                
+                const ratio = ((item.time - threshold) / threshold);                
+                const sat = (1- ratio) * 50;               
+              
                 const displayChar = item.char === ' ' ? '_' : item.char;
 
                 return (
