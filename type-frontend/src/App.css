@@ -420,3 +420,40 @@ body {
   gap: 12px;
   margin-top: 40px
 }
+
+.ai-coach-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #e2b714;
+  font-family: inherit;
+  padding: 20px;
+}
+
+.loading-icon {
+  font-size: 1.5rem;
+  animation: pulse-icon 1.5s infinite alternate;
+}
+
+.animated-loading-text {
+  font-size: 1.1rem;
+  margin: 0;
+  animation: fade-in-up 0.5s ease-out forwards; 
+}
+
+@keyframes pulse-icon {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
