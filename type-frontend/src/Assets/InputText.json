@@ -217,5 +217,432 @@
     "subtype": "cpp",
     "length": "long",
     "text": "#include <iostream>\n#include <stack>\n#include <string>\n#include <unordered_map>\nusing namespace std;\n\nbool isBalanced(const string& expr) {\n\tstack<char> st;\n\tunordered_map<char, char> pairs = {\n\t{')', '('},\n\t{']', '['},\n\t{'}', '{'}\n\t};\n\tfor (char ch : expr) {\n\tif (ch == '(' || ch == '[' || ch == '{') {\n\tst.push(ch);\n\t} else if (pairs.count(ch)) {\n\tif (st.empty() || st.top() != pairs[ch]) {\n\treturn false;\n\t}\n\tst.pop();\n\t}\n\t}\n\treturn st.empty();\n}\n\nint main() {\n\tvector<string> tests = {\n\t\"{[()]}\",\n\t\"((()))\",\n\t\"{[(])}\",\n\t\"[{]\"\n\t};\n\tfor (const auto& t : tests) {\n\tcout << t << \" -> \" << (isBalanced(t) ? \"Balanced\" : \"Not Balanced\") << endl;\n\t}\n\treturn 0;\n}"
+  },
+  {
+    "id": 31,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "short",
+    "text": "time work make good just come back well into much than then look find keep last"
+  },
+  {
+    "id": 32,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "short",
+    "text": "home life year next same need help part take give move call turn both under"
+  },
+  {
+    "id": 33,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "medium",
+    "text": "time work make good just come back well into much than then look find keep last home life year next same need help part take give move call turn both under right left near far around"
+  },
+  {
+    "id": 34,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "medium",
+    "text": "early late start stop bring carry hold reach touch think tell ask hear read write group team room door road tree water light dark strong young better best across behind beside during"
+  },
+  {
+    "id": 35,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "long",
+    "text": "time work make good just come back well into much than then look find keep last home life year next same need help part take give move call turn both under right left near far around early late start stop bring carry hold reach touch think tell ask hear read write group team room door road tree water light dark strong young better best across behind beside during around today morning evening simple enough ready maybe always almost sometimes quickly slowly across beyond toward inside outside follow build create support decide remember travel market office school river mountain season weather family friend energy result process value"
+  },
+  {
+    "id": 36,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "long",
+    "text": "world every found still learn should those never next open seem together show above often move try kind picture again change off play spell air away animal house point letter mother answer study around because people different important example system number problem question complete develop continue measure language machine computer program design pattern structure window garden village street country future moment reason effort practice success failure progress direction message signal object memory network service device project solution detail feature method resource activity purpose balance knowledge experience"
+  },
+  {
+    "id": 37,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "short",
+    "text": "The sun was setting behind the hills as people slowly returned home after a long day."
+  },
+  {
+    "id": 38,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "short",
+    "text": "A small bird landed on the fence and watched the quiet street for a few moments."
+  },
+  {
+    "id": 39,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "medium",
+    "text": "The city park was unusually busy this weekend. Families gathered near the lake, children rode bicycles along the pathways, and street musicians entertained visitors with cheerful melodies throughout the afternoon."
+  },
+  {
+    "id": 40,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "medium",
+    "text": "Learning a new skill often feels challenging at first. Progress may seem slow, but consistent practice builds confidence and gradually turns difficult tasks into familiar routines."
+  },
+  {
+    "id": 41,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "long",
+    "text": "The research team spent several months collecting data from different regions before beginning their analysis. After reviewing thousands of responses, they identified patterns that revealed how small changes in daily habits could significantly improve productivity and overall well-being. Their findings were later presented at a conference where experts discussed practical ways to apply the results in workplaces and educational institutions."
+  },
+  {
+    "id": 42,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "long",
+    "text": "When the old library underwent renovation, many residents worried that its historical character would be lost. Instead, architects carefully preserved the original structure while introducing modern facilities that improved accessibility and comfort. The project transformed the building into a vibrant community space that welcomed students, researchers, and local families alike."
+  },
+
+  {
+    "id": 43,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "short",
+    "text": "Success is the result of small efforts repeated day after day."
+  },
+  {
+    "id": 44,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "short",
+    "text": "The best way to predict the future is to create it."
+  },
+  {
+    "id": 45,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "medium",
+    "text": "Great achievements rarely happen overnight; they are built through patience, persistence, and the willingness to improve a little every day."
+  },
+  {
+    "id": 46,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "medium",
+    "text": "Challenges are not obstacles to success but opportunities to develop the skills and resilience required to reach it."
+  },
+  {
+    "id": 47,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "long",
+    "text": "Growth begins when you step beyond what feels comfortable and familiar. Every meaningful accomplishment requires a period of uncertainty where progress is not always visible, yet every effort contributes to the result."
+  },
+  {
+    "id": 48,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "long",
+    "text": "The distance between where you are and where you want to be is often crossed through consistency rather than intensity. Small actions performed regularly can achieve results that occasional bursts of effort never will."
+  },
+
+  {
+    "id": 49,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "short",
+    "text": "She sells seashells by the seashore."
+  },
+  {
+    "id": 50,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "short",
+    "text": "Red lorry, yellow lorry."
+  },
+  {
+    "id": 51,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "medium",
+    "text": "Peter Piper picked a peck of pickled peppers, and a peck of pickled peppers Peter Piper picked."
+  },
+  {
+    "id": 52,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "medium",
+    "text": "How can a clam cram in a clean cream can when clean cream cans are hard to cram?"
+  },
+  {
+    "id": 53,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "long",
+    "text": "Six slippery snails slid slowly seaward while seven silent sailors searched for shiny shells along the sandy shore."
+  },
+  {
+    "id": 54,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "long",
+    "text": "Thirty-three thirsty thieves thought that they thrilled the throne throughout Thursday, though the throne thought otherwise."
+  },
+
+  {
+    "id": 55,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "short",
+    "text": "Kal office se aate waqt traffic itna tha ki ghar pahunchte pahunchte kaafi late ho gaya."
+  },
+  {
+    "id": 56,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "short",
+    "text": "Maine usse message kiya tha, lekin abhi tak uska koi reply nahi aaya."
+  },
+  {
+    "id": 57,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "medium",
+    "text": "Weekend par hum sab friends milkar bahar dinner ke liye gaye the aur kaafi time baad itni achhi conversation hui."
+  },
+  {
+    "id": 58,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "medium",
+    "text": "Aaj meeting expected se thodi lambi chal gayi, isliye mujhe apna baaki ka kaam shaam tak complete karna pada."
+  },
+  {
+    "id": 59,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "long",
+    "text": "Subah jaldi uthne ka plan toh tha, lekin raat ko project par kaam karte karte kaafi late ho gaya, isliye alarm sunne ke baad bhi kuch der aur so gaya."
+  },
+  {
+    "id": 60,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "long",
+    "text": "Jab hum station pahunche toh train aane mein thoda time tha, isliye humne platform par baith kar chai pi aur trip ki planning discuss karte rahe."
+  },
+
+  {
+    "id": 61,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "short",
+    "text": "Please review the attached document and share your feedback by the end of the day."
+  },
+  {
+    "id": 62,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "short",
+    "text": "Thank you for your time. I look forward to discussing this opportunity further."
+  },
+  {
+    "id": 63,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "medium",
+    "text": "I am writing to provide an update on the project timeline. The development phase is progressing as planned, and we expect to complete the remaining tasks within the scheduled timeframe."
+  },
+  {
+    "id": 64,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "medium",
+    "text": "Following our discussion, the team has finalized the requirements and begun implementation. We will continue monitoring progress and provide regular updates on key milestones."
+  },
+  {
+    "id": 65,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "long",
+    "text": "Thank you for your continued collaboration on this initiative. After reviewing the latest requirements and stakeholder feedback, the team has identified several opportunities to improve efficiency and reduce implementation risks. We will incorporate these recommendations into the next phase and share a detailed execution plan shortly."
+  },
+  {
+    "id": 66,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "long",
+    "text": "I would like to summarize the outcomes of today's meeting and outline the agreed next steps. The team successfully resolved the outstanding technical concerns, established a revised delivery schedule, and assigned ownership for each action item. Regular status reviews will be conducted to ensure that progress remains aligned with project objectives."
+  },
+  {
+    "id": 67,
+    "type": "code",
+    "subtype": "python",
+    "length": "short",
+    "text": "name = \"Alice\"\nprint(f\"Hello, {name}!\")"
+  },
+  {
+    "id": 68,
+    "type": "code",
+    "subtype": "python",
+    "length": "short",
+    "text": "numbers = [1, 2, 3]\nprint(sum(numbers))"
+  },
+  {
+    "id": 69,
+    "type": "code",
+    "subtype": "python",
+    "length": "medium",
+    "text": "def factorial(n):\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result\n\nprint(factorial(5))"
+  },
+  {
+    "id": 70,
+    "type": "code",
+    "subtype": "python",
+    "length": "medium",
+    "text": "students = {\"Alice\": 85, \"Bob\": 92, \"Charlie\": 78}\nfor name, score in students.items():\n    if score >= 80:\n        print(name, score)"
+  },
+  {
+    "id": 71,
+    "type": "code",
+    "subtype": "python",
+    "length": "long",
+    "text": "class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n\n    def deposit(self, amount):\n        self.balance += amount\n\n    def withdraw(self, amount):\n        if amount <= self.balance:\n            self.balance -= amount\n            return True\n        return False\n\naccount = BankAccount(\"Alice\", 1000)\naccount.deposit(500)\naccount.withdraw(200)\nprint(account.balance)"
+  },
+  {
+    "id": 72,
+    "type": "code",
+    "subtype": "python",
+    "length": "long",
+    "text": "from collections import Counter\n\ntext = \"the quick brown fox jumps over the lazy dog\"\nwords = text.split()\ncounts = Counter(words)\n\nfor word, count in counts.items():\n    print(f\"{word}: {count}\")\n\nmost_common = counts.most_common(2)\nprint(most_common)"
+  },
+
+  {
+    "id": 73,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "short",
+    "text": "const name = 'Alice';\nconsole.log(`Hello, ${name}!`);"
+  },
+  {
+    "id": 74,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "short",
+    "text": "const nums = [1, 2, 3];\nconsole.log(nums.length);"
+  },
+  {
+    "id": 75,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "medium",
+    "text": "function squareNumbers(arr) {\n  return arr.map(num => num * num);\n}\n\nconsole.log(squareNumbers([1, 2, 3, 4]));"
+  },
+  {
+    "id": 76,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "medium",
+    "text": "const users = ['Alice', 'Bob', 'Charlie'];\n\nusers.forEach(user => {\n  console.log(`Welcome ${user}`);\n});"
+  },
+  {
+    "id": 77,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "long",
+    "text": "class TaskManager {\n  constructor() {\n    this.tasks = [];\n  }\n\n  addTask(task) {\n    this.tasks.push(task);\n  }\n\n  listTasks() {\n    this.tasks.forEach((task, index) => {\n      console.log(`${index + 1}. ${task}`);\n    });\n  }\n}\n\nconst manager = new TaskManager();\nmanager.addTask('Write code');\nmanager.addTask('Review pull request');\nmanager.listTasks();"
+  },
+  {
+    "id": 78,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "long",
+    "text": "async function fetchUser() {\n  try {\n    const response = await fetch('/api/user');\n    const data = await response.json();\n    console.log(data);\n  } catch (error) {\n    console.error('Failed to fetch user:', error);\n  }\n}\n\nfetchUser();"
+  },
+
+  {
+    "id": 79,
+    "type": "code",
+    "subtype": "sql",
+    "length": "short",
+    "text": "SELECT * FROM users;"
+  },
+  {
+    "id": 80,
+    "type": "code",
+    "subtype": "sql",
+    "length": "short",
+    "text": "SELECT name, email FROM customers;"
+  },
+  {
+    "id": 81,
+    "type": "code",
+    "subtype": "sql",
+    "length": "medium",
+    "text": "SELECT department, COUNT(*) AS employee_count\nFROM employees\nGROUP BY department;"
+  },
+  {
+    "id": 82,
+    "type": "code",
+    "subtype": "sql",
+    "length": "medium",
+    "text": "UPDATE products\nSET price = price * 1.10\nWHERE category = 'Electronics';"
+  },
+  {
+    "id": 83,
+    "type": "code",
+    "subtype": "sql",
+    "length": "long",
+    "text": "SELECT c.customer_name, o.order_id, o.total_amount\nFROM customers c\nINNER JOIN orders o\nON c.customer_id = o.customer_id\nWHERE o.total_amount > 500\nORDER BY o.total_amount DESC;"
+  },
+  {
+    "id": 84,
+    "type": "code",
+    "subtype": "sql",
+    "length": "long",
+    "text": "SELECT p.product_name,\n       SUM(oi.quantity) AS total_sold,\n       SUM(oi.quantity * oi.unit_price) AS revenue\nFROM products p\nJOIN order_items oi ON p.product_id = oi.product_id\nGROUP BY p.product_name\nHAVING SUM(oi.quantity) > 10\nORDER BY revenue DESC;"
+  },
+
+  {
+    "id": 85,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "short",
+    "text": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello World\";\n    return 0;\n}"
+  },
+  {
+    "id": 86,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "short",
+    "text": "#include <vector>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {1, 2, 3};\n    cout << nums.size();\n}"
+  },
+  {
+    "id": 87,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "medium",
+    "text": "#include <iostream>\nusing namespace std;\n\nint factorial(int n) {\n    int result = 1;\n    for (int i = 2; i <= n; i++) {\n        result *= i;\n    }\n    return result;\n}\n\nint main() {\n    cout << factorial(5);\n}"
+  },
+  {
+    "id": 88,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "medium",
+    "text": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {1, 2, 3, 4, 5};\n    for (int num : nums) {\n        cout << num * num << \" \";\n    }\n}"
+  },
+  {
+    "id": 89,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "long",
+    "text": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nclass Student {\npublic:\n    string name;\n    int score;\n\n    Student(string n, int s) {\n        name = n;\n        score = s;\n    }\n};\n\nint main() {\n    vector<Student> students;\n    students.push_back(Student(\"Alice\", 90));\n    students.push_back(Student(\"Bob\", 85));\n\n    for (auto &student : students) {\n        cout << student.name << \" \" << student.score << endl;\n    }\n}"
+  },
+  {
+    "id": 90,
+    "type": "code",
+    "subtype": "cpp",
+    "length": "long",
+    "text": "#include <iostream>\n#include <map>\nusing namespace std;\n\nint main() {\n    map<string, int> inventory;\n    inventory[\"Keyboard\"] = 10;\n    inventory[\"Mouse\"] = 15;\n    inventory[\"Monitor\"] = 5;\n\n    for (auto &item : inventory) {\n        cout << item.first << \": \" << item.second << endl;\n    }\n\n    return 0;\n}"
   }
 ]
