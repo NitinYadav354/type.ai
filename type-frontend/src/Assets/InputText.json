@@ -351,21 +351,21 @@
     "type": "natural_language",
     "subtype": "tongue_twisters",
     "length": "short",
-    "text": "She sells seashells by the seashore."
+    "text": "Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair. Fuzzy Wuzzy wasn’t fuzzy, was he?"
   },
   {
     "id": 50,
     "type": "natural_language",
     "subtype": "tongue_twisters",
     "length": "short",
-    "text": "Red lorry, yellow lorry."
+    "text": "I slit the sheet, the sheet I slit, and on the slitted sheet I sit."
   },
   {
     "id": 51,
     "type": "natural_language",
     "subtype": "tongue_twisters",
     "length": "medium",
-    "text": "Peter Piper picked a peck of pickled peppers, and a peck of pickled peppers Peter Piper picked."
+    "text": "Six slippery snails slid slowly seaward while seven silent sailors searched for shiny shells along the sandy shore."
   },
   {
     "id": 52,
@@ -379,7 +379,7 @@
     "type": "natural_language",
     "subtype": "tongue_twisters",
     "length": "long",
-    "text": "Six slippery snails slid slowly seaward while seven silent sailors searched for shiny shells along the sandy shore."
+    "text": "Something in a thirty-acre thermal thicket of thorns and thistles thumped and thundered threatening the three-D thoughts of Matthew the thug"
   },
   {
     "id": 54,
