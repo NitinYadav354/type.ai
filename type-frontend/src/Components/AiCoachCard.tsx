@@ -47,7 +47,7 @@ export const AiCoachCard = ({ coachResponse, optimisedKeystroke }: AiCoachCardPr
 
       {isLoading && (
         <div className="ai-coach-loading-container">
-        <LottiePlayer style={{ width: 120, height: 120 }} />
+        <LottiePlayer style={{ width: 240, height: 240 }} />
           <p key={phraseIndex} className="animated-loading-text">
             {loadingPhrases[phraseIndex]}
           </p>

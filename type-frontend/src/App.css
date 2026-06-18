@@ -145,7 +145,7 @@ body {
 } 
 
 .AiCoachCard-errormessage {
-  margin: 5px 0 15px 0;
+  margin: 5px 0 px 0;
   font-size: 0.9rem;
   color: #d1d0c5;
 }
@@ -427,11 +427,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
   color: #e2b714;
   font-family: inherit;
   padding: 2px;
-  margin-top: -100px;
 }
 
 .loading-icon {
@@ -441,7 +439,7 @@ body {
 
 .animated-loading-text {
   font-size: 1.1rem;
-  margin: 0;
+  margin-top: -20px;
   animation: fade-in-up 0.5s ease-out forwards; 
 }
 
