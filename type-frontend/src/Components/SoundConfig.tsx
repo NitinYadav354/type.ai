@@ -5,12 +5,14 @@ interface SoundConfigProps {
   setEnableErrorSound: (enableErrorSound: boolean) => void;
   isBlindMode: boolean;
   setIsBlindMode: (isBlindMode: boolean) => void;
+  resetTest: () => void;
 }
 
 export const SoundConfig = ({
   soundMode, setSoundMode,
   enableErrorSound, setEnableErrorSound,
-  isBlindMode, setIsBlindMode
+  isBlindMode, setIsBlindMode,
+  resetTest
 }: SoundConfigProps) => {
 
 
@@ -41,7 +43,7 @@ export const SoundConfig = ({
           {soundIcons[soundMode as keyof typeof soundIcons]}
         </button>
 
-        <button
+        <button title={enableErrorSound ? "Disable Error Sound" : "Enable Error Sound"}
           className="config-toggle-btn"
           onClick={(e) => {
             setEnableErrorSound(!enableErrorSound);
@@ -52,7 +54,7 @@ export const SoundConfig = ({
           {enableErrorSound ? '🔔' : '🔕'}
         </button>
 
-        <button
+        <button title={isBlindMode ? "Disable Blind Mode" : "Enable Blind Mode"}
           className="config-toggle-btn"
           onClick={(e) => {
             setIsBlindMode(!isBlindMode);
@@ -60,6 +62,13 @@ export const SoundConfig = ({
           }}
         >
           {isBlindMode ? '🙈' : '👁️'}
+        </button>
+
+        <button title="Reset Test" className="config-toggle-btn" onClick={(e) => {
+          resetTest();
+          e.currentTarget.blur();
+        }}>
+          🔄
         </button>
       </div>
    

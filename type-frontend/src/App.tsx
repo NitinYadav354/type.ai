@@ -30,7 +30,8 @@ function App() {
     availableSubCategories,
     soundMode, setSoundMode,
     enableErrorSound, setEnableErrorSound,
-    isBlindMode, setIsBlindMode
+    isBlindMode, setIsBlindMode,
+    resetTest
   } = useTypingEngine()
 
 const coachStateData = useAiCoach();
@@ -66,7 +67,7 @@ const coachStateData = useAiCoach();
       <div className="typing-layout">
       
       <TextDisplay inputText={inputText} targetText={targetText} isBlindMode={isBlindMode} />
-      <SoundConfig isBlindMode={isBlindMode} setIsBlindMode={setIsBlindMode} soundMode={soundMode} setSoundMode={setSoundMode} enableErrorSound={enableErrorSound} setEnableErrorSound={setEnableErrorSound} />
+      <SoundConfig isBlindMode={isBlindMode} setIsBlindMode={setIsBlindMode} soundMode={soundMode} setSoundMode={setSoundMode} enableErrorSound={enableErrorSound} setEnableErrorSound={setEnableErrorSound} resetTest={resetTest} />
       </div>
       <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
       {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}

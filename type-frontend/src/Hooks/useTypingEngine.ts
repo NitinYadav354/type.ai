@@ -75,18 +75,23 @@ export default function useTypingEngine() {
 
 }, [category, subCategory, length]);
 
-    useEffect(() => {
+const resetTest = useCallback(() => {
   generateNewText();
   setInputText('');
   setStatus('idle');
-    keyStrokesRef.current = [];
-    setTimeTaken(0);
-    setWpm(0);
-    setAccuracy(100);
-    previousTimeRef.current = null;
-    inputTextRef.current = '';
+  keyStrokesRef.current = [];
+  setTimeTaken(0);
+  setWpm(0);
+  setAccuracy(100);
+  previousTimeRef.current = null;
+  inputTextRef.current = '';
+}, [generateNewText])
+
+    useEffect(() => {
+        resetTest();
     
-}, [generateNewText]);
+}, [resetTest]);
+
 
     const FinishTest = async () => {
         const metrics = calculateMetrics(keyStrokesRef.current, inputText)
@@ -255,7 +260,8 @@ export default function useTypingEngine() {
         enableErrorSound,
         setEnableErrorSound,
         isBlindMode,
-        setIsBlindMode
+        setIsBlindMode,
+        resetTest
     }
 }
 
