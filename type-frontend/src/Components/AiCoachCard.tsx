@@ -7,6 +7,8 @@ import LottiePlayer from './LottiePlayer'
 interface AiCoachCardProps {
   coachResponse: ReturnType<typeof useAiCoach>
   optimisedKeystroke: ReturnType<typeof optimiseKeystroke>
+  onGeneratePractice?: (promptText: string) => Promise<void>
+  isGenerating?: boolean
 }
 
 
@@ -19,7 +21,7 @@ const loadingPhrases = [
 ];
 
 
-export const AiCoachCard = ({ coachResponse, optimisedKeystroke }: AiCoachCardProps) => {
+const AiCoachCard = ({ coachResponse, optimisedKeystroke, onGeneratePractice, isGenerating }: AiCoachCardProps) => {
   const { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, error } = coachResponse
   const [phraseIndex, setPhraseIndex] = useState(0);
 
@@ -96,8 +98,25 @@ export const AiCoachCard = ({ coachResponse, optimisedKeystroke }: AiCoachCardPr
             <h3>Focus for your next practice</h3>
             {aiCoachResponse?.focus}
           </div>   
+
+          <div className="AiCoachCard-action-row" style={{ marginTop: '20px', textAlign: 'center' }}>
+            <button 
+              className="AiCoachCard-button"
+              onClick={() => onGeneratePractice?.(aiCoachResponse?.practicePrompt || '')}
+              disabled={isGenerating}
+              style={{
+                  cursor: isGenerating ? 'not-allowed' : 'pointer',
+                  opacity: isGenerating ? 0.7 : 1
+              }}
+            >
+              {isGenerating ? 'Generating Test...' : 'Practice Weaknesses'}
+            </button>
+          </div>
+
         </div>
       )}
     </div>
   );
 };
+
+export default AiCoachCard;
