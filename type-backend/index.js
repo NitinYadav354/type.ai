@@ -91,6 +91,8 @@ app.get('/ping', (req, res) => {
 
 const ai = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 
+const ANALYSIS_MODELS = ['gemini-3.1-flash', 'gemini-2.5-flash']
+
 const typingAnalysisSchema = {
     type: Type.OBJECT,
     properties: {
@@ -104,23 +106,7 @@ const typingAnalysisSchema = {
     required: ["headline", "strengths", "weaknesses", "insights", "focus", "practicePrompt"]
         }
 
-app.post('/api/coach', async (req, res) => {
-    console.log("Received coaching request")
-    try {
-        const events = req.body
-
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: JSON.stringify(events, null, 0),
-            config: {
-                thinkingConfig: {
-                    includeThoughts: true,
-                    thinkingBudget: 1024
-                },
-                  temperature: 0.1,
-                  topP: 0.9,
-                  topK: 20,
-                systemInstruction: `You are an expert in motor learning, typing performance, and behavioral pattern analysis.
+const COACH_SYSTEM_INSTRUCTION = `You are an expert in motor learning, typing performance, and behavioral pattern analysis.
 You are analyzing a typing test session.
 
 Important context:
@@ -158,25 +144,83 @@ Output instructions:
   ('fast', 'smooth') — describe the text, not how to type it. Target and 
   stress-test weaknesses. No sentences. Injected directly into a text generator.
   Example: "frequent hyphens, words starting with w and d, mix of short and 
-  long words, back-to-back pairs like 'to do', 'the way'`,
-                
-                responseMimeType: "application/json",
-                responseSchema: typingAnalysisSchema
+  long words, back-to-back pairs like 'to do', 'the way'`
+
+const PRACTICE_SYSTEM_INSTRUCTION = `Generate a 60-word typing practice passage using
+natural, readable sentences. Do not explain or label anything —
+only output the passage itself. The passage must include: `
+
+app.post('/api/coach', async (req, res) => {
+    console.log("Received coaching request")
+    const events = req.body
+    let lastErr = null
+
+    for (const model of ANALYSIS_MODELS) {
+        try {
+            const response = await ai.models.generateContent({
+                model,
+                contents: JSON.stringify(events, null, 0),
+                config: {
+                    temperature: 0.1,
+                    topP: 0.9,
+                    topK: 20,
+                    systemInstruction: COACH_SYSTEM_INSTRUCTION,
+                    responseMimeType: "application/json",
+                    responseSchema: typingAnalysisSchema,
+                    ...(model === 'gemini-2.5-flash' && {
+                        thinkingConfig: {
+                            includeThoughts: true,
+                            thinkingBudget: 1024
+                        }
+                    })
+                }
+            });
+
+            const analysisData = JSON.parse(response.text)
+            const metadata = response.usageMetadata;
+            const modelUsed = response.modelVersion;
+            const thinkingTokens = metadata.thoughtsTokenCount || 0;
+            const wasThinkingEnabled = thinkingTokens > 0;
+            console.log("AI Coaching response:", analysisData)
+            console.log(`Model used: ${modelUsed}, Thinking enabled: ${wasThinkingEnabled}, Thinking tokens: ${thinkingTokens}`)
+
+            return res.status(200).json(analysisData);
+        }
+        catch (err) {
+            console.warn(`/api/coach: ${model} failed - ${err.message}`)
+            lastErr = err
+        }
+    }
+
+    console.error("Error generating coaching feedback:", lastErr)
+    res.status(500).json({ error: 'Internal Server Error' })
+})
+
+app.post('/api/coach/practice-text', async (req, res) => {
+    console.log("Received practice text request")
+    try {
+        const { practicePrompt } = req.body
+        if (!practicePrompt) {
+            return res.status(400).json({ error: 'practicePrompt is required' })
+        }
+
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash-lite",
+            contents: practicePrompt,
+            config: {
+                systemInstruction: PRACTICE_SYSTEM_INSTRUCTION
             }
         });
 
-        const analysisData = JSON.parse(response.text)
-        const metadata = response.usageMetadata;
+        const practiceText = response.text.trim()
         const modelUsed = response.modelVersion;
-        const thinkingTokens = metadata.thoughtsTokenCount || 0;
-        const wasThinkingEnabled = thinkingTokens > 0;
-        console.log("AI Coaching response:", analysisData)
-        console.log(`Model used: ${modelUsed}, Thinking enabled: ${wasThinkingEnabled}, Thinking tokens: ${thinkingTokens}`)
+        console.log("Generated practice text:", practiceText)
+        console.log(`Model used: ${modelUsed}, Thinking enabled: false`)
 
-        return res.status(200).json(analysisData);
+        return res.status(200).json({ practiceText });
     }
     catch (err) {
-        console.error("Error generating coaching feedback:", err)
+        console.error("Error generating practice text:", err)
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })
