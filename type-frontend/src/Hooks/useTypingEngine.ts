@@ -36,7 +36,7 @@ export default function useTypingEngine() {
     const [accuracy, setAccuracy] = useState(100)
     const keyStrokesRef = useRef<keyStrokeData[]>([])
     const inputTextRef = useRef('')
-    const previousTimeRef = useRef<number | null>(null)
+    const previousTimeRef = useRef<number | null>(null)  
 
     const [soundMode, setSoundMode] = useState<'mute' | 'click1' | 'click2'>('mute');
     const [enableErrorSound, setEnableErrorSound] = useState<boolean>(false);
@@ -75,16 +75,20 @@ export default function useTypingEngine() {
 
 }, [category, subCategory, length]);
 
-const resetTest = useCallback(() => {
-  generateNewText();
-  setInputText('');
-  setStatus('idle');
-  keyStrokesRef.current = [];
-  setTimeTaken(0);
-  setWpm(0);
-  setAccuracy(100);
-  previousTimeRef.current = null;
-  inputTextRef.current = '';
+const resetTest = useCallback((newText?: string) => {
+    if (newText) {
+        setTargetText(newText);
+    } else {
+          generateNewText();
+    }
+    setInputText('');
+    setStatus('idle');
+    keyStrokesRef.current = [];
+    setTimeTaken(0);
+    setWpm(0);
+    setAccuracy(100);
+    previousTimeRef.current = null;
+    inputTextRef.current = '';
 }, [generateNewText])
 
     useEffect(() => {
