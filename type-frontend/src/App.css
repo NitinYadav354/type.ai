@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'JetBrains Mono', monospace;
-  background-color: #2C2D30;
+  background-color: #2d2d2d;
   color: #d1d0c5;
 }
 
@@ -439,7 +439,7 @@ body {
 
 .animated-loading-text {
   font-size: 1.1rem;
-  margin-top: -20px;
+  margin-top: -40px;
   animation: fade-in-up 0.5s ease-out forwards; 
 }
 
@@ -534,4 +534,14 @@ body {
   .hidden-mobile {
     display: none;
   }
+}
+
+.AiCoachCard-practice-button{
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  background-color: #e2b714;
+  color: #2c2e31;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
 }
