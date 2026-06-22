@@ -351,7 +351,7 @@
     "type": "natural_language",
     "subtype": "tongue_twisters",
     "length": "short",
-    "text": "Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair. Fuzzy Wuzzy wasn’t fuzzy, was he?"
+    "text": "Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair. Fuzzy Wuzzy wasn't fuzzy, was he?"
   },
   {
     "id": 50,
@@ -644,5 +644,89 @@
     "subtype": "cpp",
     "length": "long",
     "text": "#include <iostream>\n#include <map>\nusing namespace std;\n\nint main() {\n    map<string, int> inventory;\n    inventory[\"Keyboard\"] = 10;\n    inventory[\"Mouse\"] = 15;\n    inventory[\"Monitor\"] = 5;\n\n    for (auto &item : inventory) {\n        cout << item.first << \": \" << item.second << endl;\n    }\n\n    return 0;\n}"
+  },
+  {
+    "id": 91,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "short",
+    "text": "the and for are but not you all can her was one our out day get many work time people make good"
+  },
+  {
+    "id": 92,
+    "type": "natural_language",
+    "subtype": "random_common_words",
+    "length": "medium",
+    "text": "the and for are but not you all can her was one our out day get many work time people make good know think come take find give use most even back after"
+  },
+  {
+    "id": 93,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "short",
+    "text": "The morning train arrived on time, and passengers quickly found their seats before the journey began through the quiet countryside."
+  },
+  {
+    "id": 94,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "medium",
+    "text": "A gentle breeze moved through the trees as people gathered in the park. Children played nearby while others enjoyed reading, walking, and conversation."
+  },
+  {
+    "id": 95,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "short",
+    "text": "Success is the sum of small efforts repeated day after day, building momentum through patience, discipline, and consistent action."
+  },
+  {
+    "id": 96,
+    "type": "natural_language",
+    "subtype": "quotes",
+    "length": "medium",
+    "text": "The future depends on what you do today. Every decision, however small, shapes the direction of your journey and influences the opportunities ahead."
+  },
+  {
+    "id": 97,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "short",
+    "text": "Six slippery snails slowly slid across seven shiny stones while silly sailors sang songs beside the sparkling shore."
+  },
+  {
+    "id": 98,
+    "type": "natural_language",
+    "subtype": "tongue_twisters",
+    "length": "medium",
+    "text": "Peter Piper picked plenty of perfectly prepared peppers while Piper's playful parrot practiced proudly pronouncing peculiar phrases throughout the afternoon."
+  },
+  {
+    "id": 99,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "short",
+    "text": "Kal office mein meeting thi, but everyone arrived late because traffic was unusually heavy and roads were packed."
+  },
+  {
+    "id": 100,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "medium",
+    "text": "Weekend par hum friends ke saath cafe gaye, discussed new project ideas, shared feedback, and planned the next meetup over coffee."
+  },
+  {
+    "id": 101,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "short",
+    "text": "Please review the attached report and share your feedback by Friday so we can finalize the presentation schedule."
+  },
+  {
+    "id": 102,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "medium",
+    "text": "Following our discussion, the team has completed the initial analysis and identified key priorities. Additional recommendations will be presented during next week's review."
   }
 ]
