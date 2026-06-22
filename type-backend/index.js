@@ -91,7 +91,7 @@ app.get('/ping', (req, res) => {
 
 const ai = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 
-const ANALYSIS_MODELS = ['gemini-3.1-flash', 'gemini-2.5-flash']
+const ANALYSIS_MODELS = ['gemini-3.1-flash-lite', 'gemini-2.5-flash']
 
 const typingAnalysisSchema = {
     type: Type.OBJECT,
