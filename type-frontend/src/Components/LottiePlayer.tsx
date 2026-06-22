@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import lottie from "lottie-web";
-import aiThinkingAnimation from "../Assets/placidplace-pattern-18024.json";
+import aiThinkingAnimation from "../Assets/newAnimation.json";
 
 export default function LottiePlayer({ style }: { style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
