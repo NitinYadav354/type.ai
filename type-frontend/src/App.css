@@ -535,13 +535,3 @@ body {
     display: none;
   }
 }
-
-.AiCoachCard-practice-button{
-  padding: 12px 24px;
-  font-size: 1.1rem;
-  background-color: #e2b714;
-  color: #2c2e31;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
