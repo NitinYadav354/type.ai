@@ -16,6 +16,16 @@ const AiCoachCard = lazy(() => import("./Components/AiCoachCard"));
 
 function App() {
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      axios.get(`${import.meta.env.VITE_API_URL}/ping`)
+        .catch(() => {});
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+
   const {
     targetText,
     inputText,
