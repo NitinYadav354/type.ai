@@ -33,7 +33,7 @@ export const Footer = () => {
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
           </a>
-          <span className="version-tag">v2.0.0</span>
+          <span className="version-tag">v2.1.0</span>
         </div>
       </div>
 
