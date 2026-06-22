@@ -5,13 +5,14 @@ import TextHeatMap from './Components/TextHeatMap'
 import Auth from './Components/Auth'
 import './App.css'
 import { useAiCoach } from './Hooks/useAiCoach'
-import { AiCoachCard } from './Components/AiCoachCard'
 import {TestConfigBar } from './Components/TestConfigBar'
 import { optimiseKeystroke } from './Utility/optimseKeystroke'
 import { SoundConfig } from './Components/SoundConfig'
 import axios from 'axios'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Footer } from './Components/Footer'
+import { generateCustomText } from './Services/generateCustomText'
+const AiCoachCard = lazy(() => import("./Components/AiCoachCard"));
 
 function App() {
 
@@ -35,11 +36,23 @@ function App() {
   } = useTypingEngine()
 
 const coachStateData = useAiCoach();
+  
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  useEffect(() => {
-      axios.get(`${import.meta.env.VITE_API_URL}/ping`)
-      .catch(() => {});
-    }, []);
+  const handlePracticeWeaknesses = async (promptText: string) => {
+    if (!promptText) return;
+    
+    setIsGenerating(true);
+    try {
+      const customText = await generateCustomText(promptText);
+
+      resetTest(customText); 
+      
+    } catch (error) {
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   return (
     <div className="app"
@@ -72,7 +85,18 @@ const coachStateData = useAiCoach();
       <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
       {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
     </div>
-    {status ==='completed' && <AiCoachCard coachResponse={coachStateData} optimisedKeystroke={optimiseKeystroke(keyStrokesRef)}/>}
+    {
+  status === 'completed' && (
+    <Suspense fallback={null}>
+      <AiCoachCard
+        coachResponse={coachStateData}
+        optimisedKeystroke={optimiseKeystroke(keyStrokesRef)}
+        onGeneratePractice={handlePracticeWeaknesses}
+        isGenerating={isGenerating}
+      />
+    </Suspense>
+  )
+}
     <Footer />
     </div>
   )
