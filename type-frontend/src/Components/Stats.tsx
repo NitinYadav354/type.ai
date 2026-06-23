@@ -7,6 +7,7 @@ type StatsProps = {
 }
 
 const Stats = ({ status, TimeTaken, wpm, accuracy}: StatsProps) => {
+  const displayStatus = status === 'idle' ? '🔴' : '🟢';
     return (
   <div style={{ 
     display: 'flex', 
@@ -16,6 +17,10 @@ const Stats = ({ status, TimeTaken, wpm, accuracy}: StatsProps) => {
     opacity: status === 'completed' ? 1 : 0.4,
     transition: 'opacity 0.3s ease'
   }}>
+
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <span className={status=='typing' ? 'typing' : ''} style={{fontSize: '1.5rem', marginTop: '18px', marginRight: '30px'}}>{displayStatus}</span>
+    </div>
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <span style={{ fontSize: '0.9rem', color: '#6B7280' }}>Time</span>

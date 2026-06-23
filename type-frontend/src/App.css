@@ -77,6 +77,10 @@ body {
     animation: blink 1s infinite;
 }
 
+.typing {
+  animation: blink 1s infinite;
+}
+
 .test-config-bar {
   display: flex;
   flex-wrap: wrap;
