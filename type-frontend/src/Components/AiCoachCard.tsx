@@ -22,7 +22,7 @@ const loadingPhrases = [
 
 
 const AiCoachCard = ({ coachResponse, optimisedKeystroke, onGeneratePractice, isGenerating }: AiCoachCardProps) => {
-  const { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, error } = coachResponse
+  const { isLoading, aiCoachResponse, triggerAnalysis, hasFetched, resetCoach, error } = coachResponse
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const AiCoachCard = ({ coachResponse, optimisedKeystroke, onGeneratePractice, is
       {error && !isLoading && (
         <div className='AiCoachCard-error'>
           <p className='AiCoachCard-errormessage'>{error}</p>
-          <button onClick={() => triggerAnalysis(optimisedKeystroke)} className='AiCoachCard-tryAgainbutton'>
+          <button onClick={() => { resetCoach(); triggerAnalysis(optimisedKeystroke); }} className='AiCoachCard-tryAgainbutton'>
             Try Again
           </button>          
         </div>
@@ -102,7 +102,9 @@ const AiCoachCard = ({ coachResponse, optimisedKeystroke, onGeneratePractice, is
           <div className="AiCoachCard-action-row" style={{ marginTop: '20px', textAlign: 'center' }}>
             <button 
               className="AiCoachCard-button"
-              onClick={() => onGeneratePractice?.(aiCoachResponse?.practicePrompt || '')}
+              onClick={async () => {await onGeneratePractice?.(aiCoachResponse?.practicePrompt || '');
+                resetCoach();
+              }}
               disabled={isGenerating}
               style={{
                   cursor: isGenerating ? 'not-allowed' : 'pointer',
