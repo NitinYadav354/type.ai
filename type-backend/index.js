@@ -138,7 +138,7 @@ Output instructions:
 * headline: one punchy sentence. The defining trait of this session. ≤ 20 words. Should feel like something a coach would say, not a report.
 * strengths: 1-2 things the user genuinely does well, with a brief why. ≤ 30 words each.
 * weaknesses: 1-2 specific patterns holding them back, explained simply. ≤ 30 words each.
-* focus: the single most important drill this week. Concrete and specific. ≤ 25 words.
+* focus: the single most important piece of advice. Concrete and specific. ≤ 25 words.
 * practicePrompt: comma-separated text characteristics only — word length, 
   frequency, punctuation density, specific patterns. No behavior instructions 
   ('fast', 'smooth') — describe the text, not how to type it. Target and 
@@ -146,9 +146,9 @@ Output instructions:
   Example: "frequent hyphens, words starting with w and d, mix of short and 
   long words, back-to-back pairs like 'to do', 'the way'`
 
-const PRACTICE_SYSTEM_INSTRUCTION = `Generate a 60-word typing practice passage using
-natural, readable sentences. Do not explain or label anything —
-only output the passage itself. The passage must include: `
+const PRACTICE_SYSTEM_INSTRUCTION = `Generate a 30-word typing practice passage using
+natural, readable sentences. Do not explain or label anything -
+only output the passage itself. Never use double spaces. The passage must include: `
 
 app.post('/api/coach', async (req, res) => {
     console.log("Received coaching request")
@@ -188,6 +188,7 @@ app.post('/api/coach', async (req, res) => {
             const thinkingTokens = metadata.thoughtsTokenCount || 0;
             const wasThinkingEnabled = thinkingTokens > 0;
             console.log("AI Coaching response:", analysisData)
+            console.log("AI Coaching metadata:", metadata)
             console.log(`Model used: ${modelUsed}, Thinking enabled: ${wasThinkingEnabled}, Thinking tokens: ${thinkingTokens}`)
 
             return res.status(200).json(analysisData);
