@@ -91,7 +91,7 @@ app.get('/ping', (req, res) => {
 
 const ai = new GoogleGenAI({apiKey: process.env.GOOGLE_API_KEY});
 
-const ANALYSIS_MODELS = ['gemini-3.1-flash-lite', 'gemini-2.5-flash']
+const ANALYSIS_MODELS = ['gemini-3.5-flash','gemini-3.1-flash-lite', 'gemini-2.5-flash']
 
 const typingAnalysisSchema = {
     type: Type.OBJECT,
@@ -162,15 +162,21 @@ app.post('/api/coach', async (req, res) => {
                 contents: JSON.stringify(events, null, 0),
                 config: {
                     temperature: 0.1,
-                    topP: 0.9,
-                    topK: 20,
+                    topP: 0.2,
+                    topK: 10,
                     systemInstruction: COACH_SYSTEM_INSTRUCTION,
                     responseMimeType: "application/json",
                     responseSchema: typingAnalysisSchema,
-                    ...(model === 'gemini-2.5-flash' && {
+                    ...(model === 'gemini-2.5-flash' ?{
                         thinkingConfig: {
                             includeThoughts: true,
                             thinkingBudget: 1024
+                        }
+                        
+                    }
+                    : {
+                        thinkingConfig: {
+                            thinkingLevel: "MEDIUM"
                         }
                     })
                 }
