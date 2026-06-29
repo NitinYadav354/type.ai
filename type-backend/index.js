@@ -146,19 +146,19 @@ BAD:
 "bilateral asymmetry in inter-keystroke intervals"
 
 GOOD:
-"most pauses happen between words rather than while typing them"
+"your right hand consistently slows down more than your left"
 
 BAD:
 "cognitive reset during lexical boundary transitions"
 
 GOOD:
-"your rhythm briefly breaks when moving between words"
+"your rhythm repeatedly breaks before longer words"
 
 BAD:
 "you anticipate the next word"
 
 GOOD:
-"most mistakes happen immediately after spaces"
+"you often move into the next word without slowing down"
 
 headline:
 - One punchy sentence.
