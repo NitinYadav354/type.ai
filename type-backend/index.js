@@ -71,6 +71,37 @@ mongoose.connect(MONGO_URI)
     .catch((err) => console.error("Error connecting to MongoDB:", err))
 
 // Define routes
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    
+    if (token == null) return res.status(401).json({ error: 'Log in to view stats' });
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) return res.status(403).json({ error: 'Invalid token' });
+        
+        // Ensure guest users cannot access this if they somehow got a token
+        if (user.userId && String(user.userId).startsWith('guest_')) {
+            return res.status(403).json({ error: 'Log in to view stats' });
+        }
+        
+        req.user = user;
+        next();
+    });
+};
+
+app.get('/api/user/dashboard', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.userId;
+
+        
+        res.status(200).json({ message: `Dashboard route ready for user ${userId}` });
+    } catch (err) {
+        console.error("Error fetching dashboard data:", err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.post('/api/session', async (req, res) => {
     try {
         const sessionData = req.body
