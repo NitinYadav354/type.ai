@@ -93,9 +93,18 @@ const authenticateToken = (req, res, next) => {
 app.get('/api/user/dashboard', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.userId;
+        
+        const recentTests = await session.find({ userId: userId })
+            .sort({ timestamp: -1 })
+            .limit(50)
+            .select('timestamp testConfig.timeLimit testConfig.language macroscopicMetrics')
+            .lean();
 
         
-        res.status(200).json({ message: `Dashboard route ready for user ${userId}` });
+        res.status(200).json({ 
+            message: "Dashboard data fetched successfully",
+            chartData: recentTests.reverse() 
+        });
     } catch (err) {
         console.error("Error fetching dashboard data:", err);
         res.status(500).json({ error: 'Internal Server Error' });
