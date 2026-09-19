@@ -100,9 +100,52 @@ app.get('/api/user/dashboard', authenticateToken, async (req, res) => {
             .select('timestamp testConfig.timeLimit testConfig.language macroscopicMetrics')
             .lean();
 
+        const aggResult = await session.aggregate([
+            { $match: { userId: userId } },
+            { $facet: {
+                summary: [
+                    { $group: {
+                        _id: null,
+                        maxWpm: { $max: "$macroscopicMetrics.wpm" },
+                        avgWpm: { $avg: "$macroscopicMetrics.wpm" },
+                        avgAccuracy: { $avg: "$macroscopicMetrics.accuracy" },
+                        totalTests: { $sum: 1 },
+                        totalTimeSeconds: { $sum: "$testConfig.timeLimit" }
+                    }}
+                ],
+                problemKeys: [
+                    { $project: { items: { $objectToArray: { $ifNull: ["$microscopicMetrics.problemKeys", {}] } } } },
+                    { $unwind: "$items" },
+                    { $group: { _id: "$items.k", count: { $sum: "$items.v" } } }
+                ],
+                missedKeys: [
+                    { $project: { items: { $objectToArray: { $ifNull: ["$microscopicMetrics.missedKeys", {}] } } } },
+                    { $unwind: "$items" },
+                    { $group: { _id: "$items.k", count: { $sum: "$items.v" } } }
+                ]
+            }}
+        ]);
+
+        const result = aggResult[0];
+
+        // Format summary stats
+        const summary = result.summary.length > 0 ? result.summary[0] : {
+            maxWpm: 0, avgWpm: 0, avgAccuracy: 0, totalTests: 0, totalTimeSeconds: 0
+        };
+        delete summary._id; // clean up the null id from mongo group stage
+
+        // Round averages to 2 decimal places
+        if (summary.avgWpm) summary.avgWpm = Math.round(summary.avgWpm * 100) / 100;
+        if (summary.avgAccuracy) summary.avgAccuracy = Math.round(summary.avgAccuracy * 100) / 100;
+
+        const heatmap = { problemKeys: {}, missedKeys: {} };
+        result.problemKeys.forEach(item => heatmap.problemKeys[item._id] = item.count);
+        result.missedKeys.forEach(item => heatmap.missedKeys[item._id] = item.count);
         
         res.status(200).json({ 
             message: "Dashboard data fetched successfully",
+            summary,
+            heatmap,
             chartData: recentTests.reverse() 
         });
     } catch (err) {
