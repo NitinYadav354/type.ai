@@ -23,11 +23,20 @@ export default function Dashboard() {
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [chartFilter, setChartFilter] = useState<'all' | 'short' | 'medium' | 'long'>('all');
 
-    // Format data for the chart (calculating netWpm on the fly)
     const formattedChartData = useMemo(() => {
         if (!data || !data.chartData) return [];
-        return data.chartData.map((test: any) => {
+        
+        const filteredRawData = data.chartData.filter((test: any) => {
+            const timeLimit = test.testConfig.timeLimit;
+            if (chartFilter === 'short') return timeLimit < 30;
+            if (chartFilter === 'medium') return timeLimit >= 30 && timeLimit <= 60;
+            if (chartFilter === 'long') return timeLimit > 60;
+            return true;
+        });
+
+        return filteredRawData.map((test: any) => {
             const wpm = test.macroscopicMetrics.wpm;
             const accuracy = test.macroscopicMetrics.accuracy;
             return {
@@ -39,7 +48,7 @@ export default function Dashboard() {
                 netWpm: Math.round(wpm * (accuracy / 100))
             };
         });
-    }, [data]);
+    }, [data, chartFilter]);
 
     useEffect(() => {
         let isMounted = true;
@@ -118,16 +127,40 @@ export default function Dashboard() {
                 gap: '16px',
                 marginBottom: '40px'
             }}>
-                <StatCard title="Total Tests" value={data?.summary?.totalTests || 0} />
-                <StatCard title="Total Time" value={formatTime(data?.summary?.totalTimeSeconds)} />
-                <StatCard title="Personal Best" value={data?.summary?.maxWpm || 0} subtitle="Words Per Minute" />
-                <StatCard title="Avg WPM" value={data?.summary?.avgWpm || 0}/>
-                <StatCard title="Avg Accuracy" value={`${data?.summary?.avgAccuracy || 0}%`} />
+                <StatCard title="Total Tests" value={data?.summary?.totalTests || 0} icon="📝" />
+                <StatCard title="Total Time" value={formatTime(data?.summary?.totalTimeSeconds)} icon="⏱️" />
+                <StatCard title="Personal Best" value={data?.summary?.maxWpm || 0} subtitle="Words Per Minute" icon="🏆" />
+                <StatCard title="Avg WPM" value={data?.summary?.avgWpm || 0} icon="⚡" />
+                <StatCard title="Avg Accuracy" value={`${data?.summary?.avgAccuracy || 0}%`} icon="🎯" />
             </div>
             
             {/* Line Chart Section */}
             <div style={{ backgroundColor: '#11111B', padding: '20px', borderRadius: '12px', marginBottom: '20px' }}>
-                <h3 style={{ color: '#A6ACCD', marginBottom: '20px' }}>Performance History</h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+                    <h3 style={{ color: '#A6ACCD', margin: 0 }}>Performance History</h3>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        {['all', 'short', 'medium', 'long'].map(filter => (
+                            <button
+                                key={filter}
+                                onClick={() => setChartFilter(filter as any)}
+                                style={{
+                                    backgroundColor: chartFilter === filter ? '#818CF8' : '#1E1E2E',
+                                    color: chartFilter === filter ? '#11111B' : '#A6ACCD',
+                                    border: 'none',
+                                    padding: '6px 12px',
+                                    borderRadius: '20px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.85rem',
+                                    textTransform: 'capitalize',
+                                    fontWeight: chartFilter === filter ? 'bold' : 'normal',
+                                    transition: 'all 0.2s ease-in-out'
+                                }}
+                            >
+                                {filter}
+                            </button>
+                        ))}
+                    </div>
+                </div>
                 <div style={{ width: '100%', height: 350 }}>
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={formattedChartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
