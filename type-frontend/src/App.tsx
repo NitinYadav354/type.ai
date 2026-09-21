@@ -12,6 +12,8 @@ import axios from 'axios'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Footer } from './Components/Footer'
 import { generateCustomText } from './Services/generateCustomText'
+import Dashboard from './Components/Dashboard'
+
 const AiCoachCard = lazy(() => import("./Components/AiCoachCard"));
 
 function App() {
@@ -45,9 +47,11 @@ function App() {
     resetTest
   } = useTypingEngine()
 
-const coachStateData = useAiCoach();
-  
+  const coachStateData = useAiCoach();
   const [isGenerating, setIsGenerating] = useState(false);
+  
+  // Dashboard view toggle state
+  const [showDashboard, setShowDashboard] = useState(false);
 
   const handlePracticeWeaknesses = async (promptText: string) => {
     if (!promptText) return;
@@ -57,6 +61,8 @@ const coachStateData = useAiCoach();
       const customText = await generateCustomText(promptText);
 
       resetTest(customText); 
+      // Switch back to typing test automatically if practice text generated
+      setShowDashboard(false); 
       
     } catch (error) {
     } finally {
@@ -83,30 +89,42 @@ const coachStateData = useAiCoach();
         marginBottom: '40px'
       }}>
         <h1 style={{ color: "#818CF8", margin: 0 }}>Type.AI</h1>
-      <Auth />
-      </div>
-      <TestConfigBar category={category} setCategory={setCategory} subCategory={subCategory} setSubCategory={setSubCategory} length={length} setLength={setLength} uniqueCategories={uniqueCategories} availableSubCategories={availableSubCategories} />
-
-      <div className="typing-layout">
-      
-      <TextDisplay inputText={inputText} targetText={targetText} isBlindMode={isBlindMode} />
-      <SoundConfig isBlindMode={isBlindMode} setIsBlindMode={setIsBlindMode} soundMode={soundMode} setSoundMode={setSoundMode} enableErrorSound={enableErrorSound} setEnableErrorSound={setEnableErrorSound} resetTest={resetTest} />
-      </div>
-      <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
-      {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
-    </div>
-    {
-  status === 'completed' && (
-    <Suspense fallback={null}>
-      <AiCoachCard
-        coachResponse={coachStateData}
-        optimisedKeystroke={optimiseKeystroke(keyStrokesRef)}
-        onGeneratePractice={handlePracticeWeaknesses}
-        isGenerating={isGenerating}
+      <Auth 
+        showDashboard={showDashboard} 
+        onToggleDashboard={() => setShowDashboard(!showDashboard)} 
       />
-    </Suspense>
-  )
-}
+      </div>
+
+      {showDashboard ? (
+        <Dashboard />
+      ) : (
+        <>
+          <TestConfigBar category={category} setCategory={setCategory} subCategory={subCategory} setSubCategory={setSubCategory} length={length} setLength={setLength} uniqueCategories={uniqueCategories} availableSubCategories={availableSubCategories} />
+
+          <div className="typing-layout">
+          
+          <TextDisplay inputText={inputText} targetText={targetText} isBlindMode={isBlindMode} />
+          <SoundConfig isBlindMode={isBlindMode} setIsBlindMode={setIsBlindMode} soundMode={soundMode} setSoundMode={setSoundMode} enableErrorSound={enableErrorSound} setEnableErrorSound={setEnableErrorSound} resetTest={resetTest} />
+          </div>
+          <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
+          {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
+        </>
+      )}
+    </div>
+    
+    {
+      !showDashboard && status === 'completed' && (
+        <Suspense fallback={null}>
+          <AiCoachCard
+            coachResponse={coachStateData}
+            optimisedKeystroke={optimiseKeystroke(keyStrokesRef)}
+            onGeneratePractice={handlePracticeWeaknesses}
+            isGenerating={isGenerating}
+          />
+        </Suspense>
+      )
+    }
+    
     <Footer />
     </div>
   )

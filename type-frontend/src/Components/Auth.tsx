@@ -2,7 +2,12 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import axios from "axios"
 import { getOrCreateGuestID } from "../Utility/userGuestID"
 
-export default function Auth() {
+interface AuthProps {
+  onToggleDashboard?: () => void;
+  showDashboard?: boolean;
+}
+
+export default function Auth({ onToggleDashboard, showDashboard }: AuthProps) {
   const API_URL = import.meta.env.VITE_API_URL
   const token = localStorage.getItem('AuthToken')
   const userDataString = localStorage.getItem('userData')
@@ -41,14 +46,21 @@ export default function Auth() {
           <span className="auth-user-name">
             Welcome, {user.name}
           </span>
-          <div className="auth-logout-wrapper">
+          <div className="auth-logout-wrapper" style={{ display: 'flex', gap: '15px' }}>
+            <button 
+              onClick={onToggleDashboard}
+              className="auth-logout-button"
+              title={showDashboard ? "Back to Typing Test" : "View Dashboard"}
+            >
+              {showDashboard ? '⌨️' : '📊'}
+            </button>
             <button 
               onClick={handleLogout}
               className="auth-logout-button"
+              title="Logout"
             >
               ⏻
             </button>
-            <div className="hover-text">Logout</div>
           </div>
         </>
       ) : (
