@@ -1,6 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { fetchDashboardData } from '../Services/DashboardAPI';
 import StatCard from './StatCard';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts';
 
 const formatTime = (totalSeconds: number) => {
     if (!totalSeconds) return '0h 0m';
@@ -13,6 +23,23 @@ export default function Dashboard() {
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    // Format data for the chart (calculating netWpm on the fly)
+    const formattedChartData = useMemo(() => {
+        if (!data || !data.chartData) return [];
+        return data.chartData.map((test: any) => {
+            const wpm = test.macroscopicMetrics.wpm;
+            const accuracy = test.macroscopicMetrics.accuracy;
+            return {
+                rawDate: new Date(test.timestamp),
+                displayDate: new Date(test.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+                timeTaken: test.testConfig.timeLimit,
+                wpm: wpm,
+                accuracy: accuracy,
+                netWpm: Math.round(wpm * (accuracy / 100))
+            };
+        });
+    }, [data]);
 
     useEffect(() => {
         let isMounted = true;
@@ -65,6 +92,22 @@ export default function Dashboard() {
         );
     }
 
+    const CustomTooltip = ({ active, payload, label }: any) => {
+        if (active && payload && payload.length) {
+            const pointData = payload[0].payload;
+            return (
+                <div style={{ backgroundColor: '#11111B', padding: '12px', border: '1px solid #818CF8', borderRadius: '8px' }}>
+                    <p style={{ margin: '0 0 8px 0', color: '#A6ACCD', fontWeight: 'bold' }}>{pointData.rawDate.toLocaleString()}</p>
+                    <p style={{ margin: '4px 0', color: '#6B7280' }}>Time Taken: {pointData.timeTaken}s</p>
+                    <p style={{ margin: '4px 0', color: '#818CF8' }}>WPM: {pointData.wpm}</p>
+                    <p style={{ margin: '4px 0', color: '#10B981' }}>Net WPM: {pointData.netWpm}</p>
+                    <p style={{ margin: '4px 0', color: '#F59E0B' }}>Accuracy: {pointData.accuracy}%</p>
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
         <div className="dashboard-container" style={{ width: '100%', marginTop: '20px', padding: '20px', backgroundColor: '#1E1E2E', borderRadius: '12px' }}>
             <h2 style={{ color: '#818CF8', marginBottom: '24px' }}>Your Statistics</h2>
@@ -82,7 +125,26 @@ export default function Dashboard() {
                 <StatCard title="Avg Accuracy" value={`${data?.summary?.avgAccuracy || 0}%`} />
             </div>
             
-            <div id="dashboard-line-chart" style={{ marginTop: '20px' }}></div>
+            {/* Line Chart Section */}
+            <div style={{ backgroundColor: '#11111B', padding: '20px', borderRadius: '12px', marginBottom: '20px' }}>
+                <h3 style={{ color: '#A6ACCD', marginBottom: '20px' }}>Performance History</h3>
+                <div style={{ width: '100%', height: 350 }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={formattedChartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                            <XAxis dataKey="displayDate" stroke="#9CA3AF" tick={{ fill: '#9CA3AF' }} />
+                            <YAxis yAxisId="left" stroke="#818CF8" tick={{ fill: '#818CF8' }} />
+                            <YAxis yAxisId="right" orientation="right" stroke="#F59E0B" tick={{ fill: '#F59E0B' }} domain={[0, 100]} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                            <Line yAxisId="left" type="monotone" dataKey="wpm" name="WPM" stroke="#818CF8" strokeWidth={3} activeDot={{ r: 8 }} />
+                            <Line yAxisId="left" type="monotone" dataKey="netWpm" name="Net WPM" stroke="#10B981" strokeWidth={3} />
+                            <Line yAxisId="right" type="monotone" dataKey="accuracy" name="Accuracy" stroke="#F59E0B" strokeWidth={2} dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+
             <div id="dashboard-heatmap" style={{ marginTop: '20px' }}></div>
         </div>
     );
