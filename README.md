@@ -25,6 +25,13 @@
 * **Intelligent Session Merging:** Play as a guest immediately. When you log in, your previous local session data is seamlessly merged into your permanent cloud profile.
 * **Multi-line & Code Support:** Fully supports tabs (`\t`) and line breaks (`\n`) for practicing programming syntax and formatting.
 
+## Screenshots
+
+![Screenshot 1](screenshots/ss1.png)
+![Screenshot 2](screenshots/ss2.png)
+![Screenshot 3](screenshots/ss3.png)
+![Screenshot 3](screenshots/ss4.png)
+
 ##  Tech Stack
 
 **Frontend (Decoupled Architecture)**
