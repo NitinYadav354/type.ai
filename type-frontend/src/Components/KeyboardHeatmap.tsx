@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface KeyboardHeatmapProps {
     heatmapData: {
@@ -21,6 +21,34 @@ const getKeyLabel = (key: string) => {
 };
 
 export default function KeyboardHeatmap({ heatmapData }: KeyboardHeatmapProps) {
+    const maxValues = useMemo(() => {
+        if (!heatmapData) return { missed: 0, problem: 0 };
+
+        const maxMissed = Math.max(
+            ...Object.values(heatmapData.missedKeys || {}),
+            0
+        );
+
+        const maxProblem = Math.max(
+            ...Object.values(heatmapData.problemKeys || {}),
+            0
+        );
+
+        return {
+            missed: maxMissed,
+            problem: maxProblem
+        };
+    }, [heatmapData]);
+
+    const activeMap = heatmapData?.missedKeys;
+    const activeMax = maxValues.missed;
+
+    const getIntensity = (val: number | undefined, maxVal: number) => {
+        if (!val || maxVal === 0) return 0;
+
+        return 0.15 + (val / maxVal) * 0.85;
+    };
+
     return (
         <div style={{
             backgroundColor: '#11111B',
@@ -51,26 +79,50 @@ export default function KeyboardHeatmap({ heatmapData }: KeyboardHeatmapProps) {
                             marginLeft: `${rowIndex * 15}px`
                         }}
                     >
-                        {row.map(key => (
-                            <div
-                                key={key}
-                                style={{
-                                    width: key === ' ' ? '300px' : '45px',
-                                    height: '45px',
-                                    backgroundColor: '#1E1E2E',
-                                    color: '#A6ACCD',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    borderRadius: '6px',
-                                    fontWeight: '600',
-                                    fontSize: '0.9rem',
-                                    border: '1px solid #374151'
-                                }}
-                            >
-                                {getKeyLabel(key)}
-                            </div>
-                        ))}
+                        {row.map(key => {
+                            const count = activeMap?.[key] || 0;
+                            const intensity = getIntensity(count, activeMax);
+
+                            const rgb = '248, 113, 113';
+
+                            return (
+                                <div
+                                    key={key}
+                                    title={`Key: ${key === ' ' ? 'Space' : key}\nMissed: ${count} times`}
+                                    style={{
+                                        width: key === ' ' ? '300px' : '45px',
+                                        height: '45px',
+                                        backgroundColor:
+                                            intensity > 0
+                                                ? `rgba(${rgb}, ${intensity})`
+                                                : '#1E1E2E',
+                                        color:
+                                            intensity > 0.5
+                                                ? '#11111B'
+                                                : '#A6ACCD',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        borderRadius: '6px',
+                                        fontWeight: '600',
+                                        fontSize: '0.9rem',
+                                        cursor: 'default',
+                                        transition: 'background-color 0.3s ease',
+                                        border: `1px solid ${
+                                            intensity > 0
+                                                ? `rgba(${rgb}, ${intensity})`
+                                                : '#374151'
+                                        }`,
+                                        boxShadow:
+                                            intensity > 0.4
+                                                ? `0 0 10px rgba(${rgb}, ${intensity / 2})`
+                                                : 'none'
+                                    }}
+                                >
+                                    {getKeyLabel(key)}
+                                </div>
+                            );
+                        })}
                     </div>
                 ))}
             </div>

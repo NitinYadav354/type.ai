@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { fetchDashboardData } from '../Services/DashboardAPI';
 import StatCard from './StatCard';
+import KeyboardHeatmap from './KeyboardHeatmap';
 import {
   LineChart,
   Line,
@@ -178,7 +179,7 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div id="dashboard-heatmap" style={{ marginTop: '20px' }}></div>
+            <KeyboardHeatmap heatmapData={data?.heatmap} />
         </div>
     );
 }
