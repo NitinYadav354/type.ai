@@ -70,50 +70,90 @@ function App() {
     }
   };
 
-  return (
-    <div className="app"
-     style = {{
+ return (
+  <div
+    className="app"
+    style={{
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       paddingTop: '10vh',
-    }}>
-      <div style = {{
-        width: "100%", maxWidth: "900px", padding: "0 20px"
-      }}>
-      <div style = {{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '40px'
-      }}>
-        <h1 style={{ color: "#818CF8", margin: 0 }}>Type.AI</h1>
-      <Auth 
-        showDashboard={showDashboard} 
-        onToggleDashboard={() => setShowDashboard(!showDashboard)} 
-      />
+    }}
+  >
+    <main
+      style={{
+        width: '100%',
+        maxWidth: '900px',
+        padding: '0 20px',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '40px',
+        }}
+      >
+        <h1 style={{ color: '#818CF8', margin: 0 }}>Type.AI</h1>
+
+        <Auth
+          showDashboard={showDashboard}
+          onToggleDashboard={() => setShowDashboard(!showDashboard)}
+        />
       </div>
 
       {showDashboard ? (
         <Dashboard />
       ) : (
         <>
-          <TestConfigBar category={category} setCategory={setCategory} subCategory={subCategory} setSubCategory={setSubCategory} length={length} setLength={setLength} uniqueCategories={uniqueCategories} availableSubCategories={availableSubCategories} />
+          <TestConfigBar
+            category={category}
+            setCategory={setCategory}
+            subCategory={subCategory}
+            setSubCategory={setSubCategory}
+            length={length}
+            setLength={setLength}
+            uniqueCategories={uniqueCategories}
+            availableSubCategories={availableSubCategories}
+          />
 
           <div className="typing-layout">
-          
-          <TextDisplay inputText={inputText} targetText={targetText} isBlindMode={isBlindMode} />
-          <SoundConfig isBlindMode={isBlindMode} setIsBlindMode={setIsBlindMode} soundMode={soundMode} setSoundMode={setSoundMode} enableErrorSound={enableErrorSound} setEnableErrorSound={setEnableErrorSound} resetTest={resetTest} />
+            <TextDisplay
+              inputText={inputText}
+              targetText={targetText}
+              isBlindMode={isBlindMode}
+            />
+
+            <SoundConfig
+              isBlindMode={isBlindMode}
+              setIsBlindMode={setIsBlindMode}
+              soundMode={soundMode}
+              setSoundMode={setSoundMode}
+              enableErrorSound={enableErrorSound}
+              setEnableErrorSound={setEnableErrorSound}
+              resetTest={resetTest}
+            />
           </div>
-          <Stats status={status} TimeTaken={TimeTaken} wpm={wpm} accuracy={accuracy} />
-          {status === 'completed' && <TextHeatMap keyStrokes={keyStrokesRef} text={inputText} />}
+
+          <Stats
+            status={status}
+            TimeTaken={TimeTaken}
+            wpm={wpm}
+            accuracy={accuracy}
+          />
+
+          {status === 'completed' && (
+            <TextHeatMap
+              keyStrokes={keyStrokesRef}
+              text={inputText}
+            />
+          )}
         </>
       )}
-    </div>
-    
-    {
-      !showDashboard && status === 'completed' && (
+
+      {!showDashboard && status === 'completed' && (
         <Suspense fallback={null}>
           <AiCoachCard
             coachResponse={coachStateData}
@@ -122,13 +162,12 @@ function App() {
             isGenerating={isGenerating}
           />
         </Suspense>
-      )
-    }
-    
-    <Footer />
-    </div>
-  )
+      )}
+    </main>
 
+    <Footer />
+  </div>
+)
 }
 
 export default App
