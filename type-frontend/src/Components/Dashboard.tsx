@@ -101,7 +101,7 @@ export default function Dashboard() {
         );
     }
 
-    const CustomTooltip = ({ active, payload, label }: any) => {
+    const CustomTooltip = ({ active, payload }: any) => {
         if (active && payload && payload.length) {
             const pointData = payload[0].payload;
             return (
