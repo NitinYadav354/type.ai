@@ -728,5 +728,47 @@
     "subtype": "professional_writing",
     "length": "medium",
     "text": "Following our discussion, the team has completed the initial analysis and identified key priorities. Additional recommendations will be presented during next week's review."
+  },
+  {
+    "id": 103,
+    "type": "natural_language",
+    "subtype": "hinglish",
+    "length": "short",
+    "text": "Aaj 3 baje milte hain, phir 15 minute mein plan discuss karke 2026 ke goals finalize karenge."
+  },
+  {
+    "id": 104,
+    "type": "natural_language",
+    "subtype": "professional_writing",
+    "length": "short",
+    "text": "Please submit the Q4 report by 15/10/2026. The review meeting is scheduled for 3:30 p.m."
+  },
+  {
+    "id": 105,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "short",
+    "text": "const items = [1, 2, 3]; const path = \"src/components\\\\main.js\";"
+  },
+  {
+    "id": 106,
+    "type": "code",
+    "subtype": "javascript",
+    "length": "medium",
+    "text": "const scores = [85, 92, 78];\nconst filePath = \"data\\\\scores.json\";\nconst endpoint = \"/api/scores/106\";\nconsole.log(scores, filePath, endpoint);"
+  },
+  {
+    "id": 107,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "short",
+    "text": "The workshop starts at 9:00 on 12/10/2026, and participants should bring a notebook."
+  },
+  {
+    "id": 108,
+    "type": "natural_language",
+    "subtype": "sentences_and_paragraphs",
+    "length": "medium",
+    "text": "The project team reviewed 24 tasks [18 completed, 6 pending] and saved the final plan at /reports/2026. Everyone will meet again next Monday to discuss the remaining work."
   }
 ]
