@@ -16,6 +16,7 @@
 <br />
 
 ##  Key Features
+* **Comprehensive User Dashboard:** A dedicated analytics dashboard featuring high-level summary cards, a filterable interactive line chart tracking WPM/Accuracy over time, and a dual-mode keyboard heatmap visualizing physical bottlenecks and recurring mistakes.
 * **AI-Generated Custom Tests:** Completes a closed-loop learning cycle by analyzing your mistakes and generating brand new, custom typing tests on the fly, specifically engineered to target your identified weaknesses.
 * **AI-Powered Typing Coach:** Utilizes Google's Gemini AI to analyze raw keystroke micro-timing, identifying specific finger weaknesses, rhythmic inconsistencies, and trouble spots.
 * **Closed-Loop Adaptive Practice:** The AI automatically generates highly targeted practice paragraphs engineered specifically to stress-test your identified weaknesses.
