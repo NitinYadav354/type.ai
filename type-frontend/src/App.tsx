@@ -96,7 +96,26 @@ function App() {
           marginBottom: '40px',
         }}
       >
-        <h1 style={{ color: '#818CF8', margin: 0 }}>Type.AI</h1>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <h1 style={{ color: '#818CF8', margin: 0 }}>Type.AI</h1>
+            
+            <div className="info-wrapper" tabIndex={0}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <div className="info-tooltip">
+                <strong>Type.AI</strong> is a minimalist, high-performance typing engine with microscopic keystroke analytics and AI coaching. <br/><br/>
+                It analyzes raw keystroke micro-timing to identify specific finger weaknesses, rhythmic inconsistencies, and trouble spots, then generates targeted practice paragraphs to stress-test your weaknesses.
+              </div>
+            </div>
+          </div>
+          <p style={{ color: '#646669', fontSize: '0.85rem', margin: '4px 0 0 0', fontWeight: 500 }}>
+            Improve Typing Speed with AI Insights
+          </p>
+        </div>
 
         <Auth
           showDashboard={showDashboard}
