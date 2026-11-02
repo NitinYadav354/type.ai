@@ -13,6 +13,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { Footer } from './Components/Footer'
 import { generateCustomText } from './Services/generateCustomText'
 import Dashboard from './Components/Dashboard'
+import { Analytics } from '@vercel/analytics/react'
 
 const AiCoachCard = lazy(() => import("./Components/AiCoachCard"));
 
@@ -185,6 +186,7 @@ function App() {
     </main>
 
     <Footer />
+    <Analytics />
   </div>
 )
 }
